@@ -1,0 +1,3223 @@
+<!DOCTYPE html>
+<!-- This is the final version ready for launch, modulo a bug or two -->
+<html>
+<script language="javascript" type="text/javascript" src="web3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<!--  -->
+
+<head>
+<meta charset="utf-8"/>
+<link href="https://fonts.googleapis.com/css?family=Zilla+Slab" rel="stylesheet">
+<!-- <link href="https://fonts.googleapis.com/css?family=BioRhyme|Josefin+Slab|Zilla+Slab" rel="stylesheet"> -->
+
+
+
+<style>
+
+
+body {
+  background-color: #666677;
+}
+
+h1, h2, h3, h4, h5, h6, h1, table h1 {
+  font-family: "Bookman";
+  background-color: #00aa33;
+  color: black;
+  text-align: center;
+}
+
+.logo {
+  font-size: 1000%;
+  color: #00aa33;
+}
+
+.borderg {
+  border: 10px solid #00aa33;
+  border-radius: 15px;
+}
+
+.bordgry {
+  border: 2px solid #99aa99;
+  border-radius: 5px;
+}
+
+.reason {
+  color: #99aa99;
+  font-style: italic;
+}
+
+.spacer {
+  border: 2px solid #99aa99;
+}
+
+h1, h2 {
+  font-size: 48pt;
+}
+
+h3, h4, h5, h6 {
+  font-size: 24pt;
+}
+
+.red {
+  background-color: #dcf3dc;
+}
+
+td.pt {
+  font-size: 12pt;
+}
+
+table {
+  background-color: white;
+  padding-left: 4px;
+  padding-right: 4px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table.s {
+  padding-left: 1px;
+  padding-right: 1px;
+  text-align: center;
+}
+
+td.el {
+  text-align: left;
+}
+
+table.ss{
+  font-family: "Helvetica";
+  font-size: 12pt;
+}
+
+th.s{
+  font-family: "Helvetica";
+  font-weight: bold;
+  font-size: 13pt;
+  transform: scale(1, 1);
+}
+
+tr.hist:nth-child(even) {
+  background-color: #dcf3dc;
+}
+
+tr.hist:nth-child(odd) {
+  border: 2px #dcf3dc;
+}
+
+tr.hist:hover {
+  background-color: black;
+  color: white;
+}
+
+tr.hist a:link {
+  color:black;
+}
+
+tr.hist a:visited {
+  color:black;
+}
+
+tr.hist:hover a:hover {
+  color:red;
+}
+
+tr.hist:hover a:active {
+  color:red;
+}
+
+tr.hist a:hover {
+  color:red;
+}
+
+tr.hist a:active {
+  color:red;
+}
+
+tr.hist:hover a:link {
+  color:white;
+}
+
+tr.hist:hover a:visited {
+  color:white;
+}
+
+th {
+  font-family: "Helvetica";
+  background-color: #dcf3dc;
+  font-size: 13pt;
+}
+
+td.bignum {
+  font-family: "Helvetica";
+  text-shadow: 2px 2px 0 #00aa33, -2px -2px 0 #00aa33;
+  text-align: center;
+  font-size: 500%;
+}
+
+td.midnum {
+  font-family: "Helvetica";
+  text-shadow: 1px 1px 0 #00aa33, -1px -1px 0 #00aa33;
+  text-align: center;
+  font-size: 150%;
+}
+
+td.r {
+  font-family: "Helvetica";
+  font-size: 18pt;
+  font-weight: bold;
+}
+
+input[type=text], textarea, select {
+  border: 2px solid #00aa33;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 100%;
+  font-family: "Zilla Slab";
+}
+
+select {
+  width: 100%;
+}
+
+input[type=text], textarea {
+  width: 98%;
+}
+
+button {
+  border: black 1px;
+  background-color: #00aa33;
+  color: black;
+  cursor: pointer;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  display: inline-block;
+  border-radius: 8pt;
+  font-size: 15pt;
+  width: 100%;
+  font-family: "Helvetica";
+}
+
+button:hover {
+  background-color: black;
+  color: white;
+}
+
+option:disabled {
+  color: gray;
+}
+
+option {
+  color: black;
+}
+
+div.a {
+  font-family: "Helvetica";
+  font-size: 13pt;
+}
+
+.tabcontent {
+  display: none;
+}
+
+
+</style>
+
+</head>
+
+<center>
+<table width="80%" class="borderg">
+  <tr>
+    <h1>
+      <td class="logo el borderg"><b>V<b></td>
+      <td class="logo el">aluED</td>
+    </h1>
+    <td class = "borderg">
+      <h4>
+        <table>
+          <tr><td class = "el">Collaborate</td></tr>
+          <tr><td class = "el">Exchange</td></tr>
+          <tr><td class = "el">Learn</td></tr>
+        </table>
+      </h4>
+    </td>
+    <td class="borderg">
+      <table class="ss">
+        <tr>
+          <td valign="top">Welcome to ValuED, the University of Edinburgh's
+            blockchain-powered distributed platform for student peer trading and collaboration.</td>
+        </tr>
+        <tr>
+          <td id="status1">You don't seem to be logged in to MetaMask</td>
+        </tr>
+        <tr>
+          <td id="status2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</center>
+<body>
+
+<div class="a" id="main_view"></div>
+
+
+
+<br>
+<div class="a" style="font-size:80%">&copy; Aydin Abadi, Dave Cochran and Richard Shillcock 2019. Ethereum Smart Contract powered by geth, remix, and MetaMask. Lovingly coded by the exceptionally smart and attractive people of the Blockchain Technologies Laboratory at the University of Edinburgh.</div><div id="owner" style="font-size:80%"></div>
+</body>
+</html>
+<!--  -->
+
+<script>
+
+//var Chart = require('chart.js');
+// Define a service provider, i.e. connect to the blockchain via web3
+var web3;
+if (typeof web3 !== 'undefined') {
+  web3 = new Web3(web3.currentProvider);console.log("web3.currentProvider");
+}
+else {
+  // set the provider you want
+  //console.log("http://0.215.199.18:8545"); // was http://localhost:8545
+  //web3 = new Web3(new Web3.providers.HttpProvider("http://0.215.199.18:8545"));
+  console.log("http://129.215.199.18:8545"); // was http://localhost:8545
+  web3 = new Web3(new Web3.providers.HttpProvider("http://129.215.199.18:8545"));
+}
+
+// Check if Metamask has been Enjected
+// if (window.web3.currentProvider.isMetaMask) {
+//   console.log("MetaMask has been injected");
+// }
+// else{
+//   console.log("MetaMask has not been injected");
+// }
+
+
+
+if (window.web3.currentProvider.isMetaMask) {
+    ethereum.enable();
+    console.log("MetaMask has been injected");
+}
+else {
+    console.log("MetaMask has not been injected");
+}
+
+//------------
+
+// The contract's ABI
+var abi = [
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "new_admin",
+				"type": "address"
+			}
+		],
+		"name": "add_admin",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "input_",
+				"type": "string"
+			}
+		],
+		"name": "claim_token",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "std_addr",
+				"type": "address"
+			},
+			{
+				"name": "numOf_tokens",
+				"type": "uint256"
+			}
+		],
+		"name": "distribute_token",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "transaction_id",
+				"type": "uint256"
+			},
+			{
+				"name": "score",
+				"type": "int256"
+			}
+		],
+		"name": "leave_feedback",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "numOf_tokens_",
+				"type": "uint256"
+			},
+			{
+				"name": "reason_",
+				"type": "string"
+			},
+			{
+				"name": "email_address_",
+				"type": "string"
+			}
+		],
+		"name": "makeProposal",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "lecture_number",
+				"type": "uint256"
+			},
+			{
+				"name": "lec_ID",
+				"type": "string"
+			}
+		],
+		"name": "register_lectureID",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "std_addr",
+				"type": "address"
+			},
+			{
+				"name": "std_num",
+				"type": "uint256"
+			}
+		],
+		"name": "register_std_addr",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "std_num",
+				"type": "uint256"
+			}
+		],
+		"name": "register_std_num",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "admin",
+				"type": "address"
+			}
+		],
+		"name": "remove_admin",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"name": "recipient_address",
+				"type": "address"
+			},
+			{
+				"name": "_reason",
+				"type": "string"
+			},
+			{
+				"name": "time_",
+				"type": "string"
+			},
+			{
+				"name": "offer_ID_",
+				"type": "uint256"
+			}
+		],
+		"name": "send_token",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "num",
+				"type": "uint256"
+			}
+		],
+		"name": "set_currentlecture_number",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"name": "admin",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "attended",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "current_lecture_number",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "hash_lectureID",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bytes2"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "lecture_tokens",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "max_score",
+		"outputs": [
+			{
+				"name": "",
+				"type": "int256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "min_score",
+		"outputs": [
+			{
+				"name": "",
+				"type": "int256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "proposals",
+		"outputs": [
+			{
+				"name": "numOf_tokens",
+				"type": "uint256"
+			},
+			{
+				"name": "creator_address",
+				"type": "address"
+			},
+			{
+				"name": "creator_emailAdress",
+				"type": "string"
+			},
+			{
+				"name": "reason",
+				"type": "string"
+			},
+			{
+				"name": "proposal_ID",
+				"type": "uint256"
+			},
+			{
+				"name": "active",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "reputations",
+		"outputs": [
+			{
+				"name": "",
+				"type": "int256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "student_token_balance",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "total_participants",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "totalNum_proposals",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "totalNum_transactions",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "totalNumOf_tokens_traded",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "transactions",
+		"outputs": [
+			{
+				"name": "sender",
+				"type": "address"
+			},
+			{
+				"name": "reciever",
+				"type": "address"
+			},
+			{
+				"name": "reason",
+				"type": "string"
+			},
+			{
+				"name": "TokenSender_feedback",
+				"type": "int256"
+			},
+			{
+				"name": "TokenReciever_feedback",
+				"type": "int256"
+			},
+			{
+				"name": "transaction_ID",
+				"type": "uint256"
+			},
+			{
+				"name": "numOf_tokens",
+				"type": "uint256"
+			},
+			{
+				"name": "creation_time",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "valid_admins",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "valid_student_addr",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "valid_student_num",
+		"outputs": [
+			{
+				"name": "validStudent_num",
+				"type": "bool"
+			},
+			{
+				"name": "token_assigned",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
+
+const status_txt = {
+  "NA": "Your account is not registered with the INF1-CG Value Creation and " +
+  "Trading scheme. " +
+  " </p>",
+  "ST": "Your status is: STUDENT",
+  "AD": "Your status is ADMIN",
+  "OW": "Your status is OWNER",
+  "XX": "If you are a current INF1-CG student, it is a requirement of the course " +
+  "that you participate in ValuED, the Value Creation and Trading scheme. To do this," +
+  " you will need to install MetaMask in your browser..."
+}
+
+var user = {
+  "account": web3.eth.coinbase,
+  "account_ch": false,
+  "status": "XX",
+  "status_ch": false,
+  "balance": null,
+  "balance_ch": false,
+  "totaltr": null,
+  "totaltr_ch": false,
+  "rep": null,
+  "rep_ch": false,
+  "trans_hist": [],
+  "offer_list": [],
+  "offer_count": 0,
+  "sender_fbk_ch": [],
+  "receiver_fbk_ch": [],
+  "lec_no": 0,
+  "lec_value": 0
+}
+
+/* A nice helper function that updates a variable in the user model, IFF the
+variable needs to be updated. If the variable is changed, a flag is set indicating
+that this has happened, so the data on the page can be updated. DO NOT use this
+to modify the transaction history*/
+
+function modify_user(to_change, new_val) {
+  if (user[to_change] != new_val) {
+    user[to_change] = new_val
+    user[to_change+"_ch"] = true
+  }
+}
+
+/* A nice helper function that updates the text in an element, IFF the text needs
+to be updated. */
+function update_element(id, content) {
+  if(!document.getElementById(id)){
+    console.log('alas ' + id + ' <--/-- ' + content);
+  }
+  if(document.getElementById(id).innerHTML != content){
+    document.getElementById(id).innerHTML = content
+  }
+}
+
+console.log(user);
+
+/* Function which checks the status of the current account number on the contract,
+setting `status` variable as either "NA", "ST" (student), "AD" (admin), or "OW"
+(owner) */
+function update_status(acc_no){
+  if(!acc_no){
+    // handles the case where acc_no is null. No need to be calling the contract
+    // if it is.
+    modify_user("status", "NA")
+    return;
+  }
+  myContract.owner.call(function(error, result){
+    // Get the owner address; if it's the same as acc_no, the user is the OWNER
+    if(error) {
+      alert("Error: Was not able to communicate with contract :(")
+      console.log(error)
+    }
+    else {
+      if(same_addr(acc_no, result)){
+        modify_user("status", "OW")
+      }
+      else{
+        myContract.valid_admins.call(acc_no, function(error, result){
+          // Check if acc_no is an admin account, if so, status is "AD"
+          if(error) {
+            alert("Error: Was not able to communicate with contract :(")
+            console.log(error)
+          }
+          else {
+            if(result){
+              modify_user("status", "AD")
+            }
+            else {
+              myContract.valid_student_addr.call(acc_no, function(error, result){
+                // Check if acc_no is valid student, if so, status is "ST", if not,
+                // then by this point we've exhausted all the possibilities for
+                // it being a registered account, so status is "NA"
+                if(error) {
+                  alert("Error: Was not able to communicate with contract :(")
+                  console.log(error)
+                }
+                else {
+                  if(result){
+                    modify_user("status", "ST")
+                  }
+                  else{
+                    modify_user("status", "NA")
+                  }
+                }
+              })
+            }
+          }
+        })
+      }
+    }
+  })
+}
+
+function update(acc_no) {
+  if (is_address(acc_no) && same_addr(acc_no, user.account)){
+    update_element("status1", "You are logged in as " + user.account);
+    update_element("status2", status_txt[user["status"]]);
+    stud_token_bal();
+    totalNumOf_tokens_traded();
+    reputations();
+  }
+  else {
+    update_element("status1", "Waiting for data from MetaMask");
+  }
+}
+
+
+//  user.account = web3.eth.accounts[0];
+//  console.log(user.account);
+// var accountInterval = setInterval(function () {
+//     if (web3.eth.accounts[0] !== user.account) {
+//         user.account = web3.eth.accounts[0];
+//         // updateInterface();
+//     }
+// }, 100);
+
+
+var ins = web3.eth.contract(abi);
+// note that "0xbc2db8ed4f03ec3812e266d52a37ce1f999e72c3" is the address of the contract on the blockchain
+var myContract = ins.at("0x68652EBb9c4a265786cd45c54EC377e64feB23a0");//keyaddress
+//var myContract = ins.at("0xe000000000000000000000000000000000000000");
+console.log("--------user.account 1-------");
+console.log(user.account);
+console.log("---------------");
+update_status(user.account);
+update(user.account);
+console.log("--------user.account 2-------");
+console.log(user.account);
+console.log("---------------");
+get_owner();
+// console.log("--------acc_no-------");
+// console.log(acc_no);
+// console.log("---------------");
+// in UI, the user needs to provide its address in order to invoke a function.
+//We need to make sure all below functions that invoke the contract function check if the
+//user has loged in. the register_std_num() belows does so. However, those function that only reads
+// the staet of the contract (in other words those that use .call()) do not need to chehck that.
+
+// REMOVED function logIn(){}
+// This has been replaced with the MetaMask autodetection below
+
+// There are a few html elements common to the Owner and Admin screens, so
+// rather than repeat them, let's define them as string constants up front
+
+const reg_num_html = "<br><label for='stud_num'>Student Number:</label><input " +
+  "type='text' id='stud_num' placeholder='e.g. 5467'></input><br><br><button  " +
+  "onclick='register_std_num()'>Register Student's Number</button><p " +
+  "id='regnumres'></p><br><br>";
+
+const reg_addr_html = "<br><label for='stud_num2'>Student Number:</label><input "  +
+  "type='text' id='stud_num2' placeholder='e.g. 5467'></input><br><label for='stud_addr'>"  +
+  "Student\'s Address:</label><input type='text' id='stud_addr' placeholder='e.g. "  +
+  "0x6bac436758904dc3675880ac400aac6badd16758'></input><br><br><button  "  +
+  "onclick='register_std_addr()'>Register Student's Address</button><p "  +
+  "id='regaddrres'></p><br><br>";
+
+const distrib_html = "<br><label for='redistribute'>Number of Tokens:</label>"  +
+  "<input type='text' id='redistribute' placeholder='e.g. 3'><label "  +
+  "for='recip_addr2'>Recipient\'s Address:</label><input type='text' "  +
+  "id='recip_addr2' placeholder='e.g. 0x50a8badb01890fa09666aabcc4408deadbeef421'>"  +
+  "</input><br><br><button  onclick='distribute_token()'>Distribute Tokens"  +
+  "</button><p id='redistributed'></p><br><br>";
+
+const lect_code_html = "<br><label for='lect_num'>Lecture Number</label>" +
+  "<input type='text' id='lect_num' placeholder='e.g. 24'></input><br><br>" +
+  "<button onclick='set_lect_num()'>Set Current Lecture Number"  +
+  "</button><p id='lect_num_set'></p><br><br>" +
+  "<br><label for='lect_num2'>Lecture Number</label>" +
+  "<input type='text' id='lect_num2' placeholder='e.g. 24'></input><br><br>" +
+  "<label for='lect_code'>Lecture ID</label>" +
+  "<input type='text' id='lect_code' placeholder='e.g. Mnemonist'></input><br>" +
+  "<br><button onclick='set_lect_code()'>Set Current Lecture ID</button>" +
+  "<p id='lect_code_set'></p><br><br>";
+
+const data_for_the_people = "<h3>Data for the People</h3>" +
+"<table><tr><th>Trade Values</th><th>Feedback Values</th></tr>" +
+"<tr><td class='graph'><canvas id='tradeVals' width='400' height='400'></canvas></td>" +
+"<td class='graph'><canvas id='fbVals' width='400' height='400'></canvas></td></tr>" +
+"<tr><th>Trade Types</th></tr>" +
+"<tr><td class='graph'><canvas id='tradeCats' width='400' height='400'></canvas></td></tr></table>";
+
+const about_top = "<table width=90%>"+
+    "<tr>" +
+      "<th width=50%><button onclick='show_about()'>About ValuED</button></th>" +
+      "<th width=50%><button onclick='show_how_to()'>Get Started</button></th>" +
+    "</tr>" +
+    "<tr>" +
+      "<td id='vcat_info' colspan=2></td>" +
+    "</tr>" +
+  "</table>"
+
+const about_vcat = "<h3>An experiment</h3>" +
+  "<p>Welcome to <i>ValuED</i>, an Ethereum powered cryptocurrency for students!</p>" +
+  "<p>We are incorporating ValuED into several courses this year. Why?</p>" +
+  "<ul><li>To incentivize students to participate in the course.</li>" +
+  "<li>To increase social cohesion in the class.</li>" +
+  "<li>To integrate the course into the ‘student experience’, and expand that experience.</li>" +
+  "<li>And to give you an agent’s-eye-view of a distributed social trading network.</li></ul>" +
+  "<p>Anything at all that is of use to you, you can trade with your fellow" +
+  " students for <i>Tokens</i>, our local currency.</p>" +
+  "<h3>What will happen?</h3>" +
+  "<p>You will each get 10 Tokens.</p>" +
+  "<p>You will see a <i>trading screen</i>. It will tell you what coins you " +
+  "currently have and give you options for how to spend them. You and your peers" +
+  " can post and reply to offers—buy and sell and give feedback on how it went.</p>" +
+  "<h3>What can you buy and sell?</h3>" +
+  "<p>Anything you want! We’ll make some suggestions, but it’s up to you!</p>" +
+  "<p>You might sell:</p>" +
+  "<ul><li>good notes from the last lecture;</li>" +
+  "<li>a cup of coffee and a five-minute chat after the lecture;</li>" +
+  "<li>English-language practice;</li>" +
+  "<li>details of a quiz night or a film show you’ve organized (we’ll help you);</li>" +
+  "<li>a lift into the Central Area;</li>" +
+  "<li>membership of a revision group;</li></ul>" +
+  "<p>You might buy:</p>" +
+  "<ul><li>someone to sit down with you and explain a key concept from a recent lecture;</li>" +
+  "<li>a wake-up phone-call on exam day;</li>" +
+  "<li>a native English speaker to proof-read your essay;</li>" +
+  "<li>details of a shared flat next year;</li>" +
+  "<li>a pair of headphone;</li>" +
+  "<li>quiz questions to revise for the exam;</li></ul>" +
+  "<h3>Do these trades have to be about the course?</h3>" +
+  "<p>No! Anything useful to you or to someone else can be traded.</p>" +
+  "<p>Right now, we're only roling it out to a few courses, but you’re taking other courses as well. Someone may want your Archaeology lecture notes if you’re on the same Archaeology course! And of course, you're welcome to trade stuff that doesn't have anything to do with any course.</p>" +
+  "<h3>What is supposed to happen?</h3>" +
+  "<p>This is an experiment. Its value is that we don’t precisely know what " +
+  "will happen. We can change things as we go, depending on what happens and " +
+  "depending on your feedback. We hope this experiment will help us make the " +
+  "course more effective and your experience of it—and the wider university—better.</p>" +
+  "<h3>What will happen to your data?</h3>" +
+  "<p>All of the activity will be logged on the blockchain. We will analyse these data and draw conclusions from them.</p>" +
+  "<p>You can be as anonymous as you wish in all of this.</p>" +
+  "<h3>Why should I engage with this?</h3>" +
+  "<p>Because you will benefit from it. You can make your own opportunities in it, or treat it as a game.</p>" +
+  "<h3>What happens at the end of it all?</h3>" +
+  "<p>There isn’t an end to it! We will let the scheme run on, to see what " +
+  "happens. We'll run the scheme next year, and you can trade with the incoming " +
+  "students.</p>";
+
+const get_started = "<h6>How to get set up for ValuED</h6>" +
+  "<p>To get started with ValuED, follow these steps:</p>" +
+    "<ol>" +
+      "<li><b>Install MetaMask</b>" +
+        "<p>MetaMask is a browser plugin for Chrome" +
+        " and Firefox which connects you to the Ethereum blockchain and allows you " +
+        "to interact with your blockchain wallet via compatible websites. Go to " +
+        "<a href='https://metamask.io' target='_blank'>metamask.io</a> " +
+        "and follow the installation instructions there.</p><img width=800px src='Screenshot_1.jpg' alt='MetaMask website'></li>" +
+      "<li><b>Connect to the ValuED private blockchain</b>" +
+        "<p>MetaMask should now be in the plugins bar of your browser. " +
+          "<ul>" +
+            "<li>Click the icon to open MetaMask.</li>" +
+              "<img src='Screenshot_2a.jpg' alt='Open MetaMask'>" +
+            "<li>The Networks menu at the top should say 'Main Ethereum Network'. Click" +
+              " it and select <i>Custom RPC</i>.</li>" +
+                "<img src='Screenshot_3a.jpg' alt='Custom RPC'>" +
+            "<li>Scroll down to. Paste in the ValuED blockchain URL, " +
+              "http://129.215.199.18:8545 where it says 'New RPC URL', and " +
+              "click Save.<br>" +
+                "<img src='Screenshot_4a.jpg' alt='ValuED blockchain URL'></li>" +
+            "<li>Click the icon in the top right, then click 'Settings', then 'Connections'</li>" +
+              "<img src='Screenshot_5a.jpg' alt='go to Settings'><img src='Screenshot_6c.jpg' alt='go to Connections'>" +
+            "<li>Enter vcat.ing.ed.ac.uk and click 'Connect'</li>" +
+              "<img src='Screenshot_6d.jpg' alt='connect to vcat.ing.ed.ac.uk'>" +
+            "<li>Return to 'Settings' and go to 'Security & Privacy'</li>" +
+            "<li>Switch off 'Show Incoming Transactions' and 'Participate in MetaMetrics'</li>" +
+              "<img src='Screenshot_7a.jpg' alt='Switch off 'Show Incoming Transactions' and 'Participate in MetaMetrics''>" +
+          "</ul>" +
+        "</p>" +
+      "</li>" +
+      "<li><b>Copy your blockchain address and email it to us</b>" +
+        "<p>Below the " +
+  "Networks menu, you will find the name and address of your Ethereum account. " +
+  "If you click on it, MetaMask will copy the address to the clipboard. " +
+  "Your address will consist of '0x' followed by 40 hexadecimal digits.</p>" +
+  "<img src='I_want_to_be_ValuED_too_.jpg' alt='Copy your account address'><p>Email " +
+  "this address along with your UUN to " +
+  "<a href='mailto:dave.cochran@ed.ac.uk'>dave.cochran@ed.ac.uk</a>.</p></li>" +
+  "<li><b>Wait a little bit</b><p>Stick the kettle on and wait while the ValuED " +
+  "team register your account. We will add you to the smart contract that powers " +
+  "ValuED, set you 10 Tokens to get you started, as well as a little Ether</p>" +
+  "<img width=300px src='Screenshot_8a.jpg' alt='Delicious tea'>" +
+  "<p>(Don't get too excited about the Ether, though; the Ether you will be sent" +
+  " only exists on the ValuED blockchain, and cannot be used on the main " +
+  "Ethereum network. It is <i>not</i> the same thing as Tokens, and has " +
+  "no tradeable value. However, it is necessary to enable you to make changes " +
+  "to the contract on the local blockchain. Whenever you propose, make, or leave " +
+  "feedback on a trade, it consumes a little Ether.)</p></li>" +
+  "<li><b>Start using ValuED</b><p>As soon as your account is activated, this " +
+  "page will detect the change, and start showing the main Trading " +
+  "screen. First, propose trades, or wait till you see a proposal you like the look of. From there, you can " +
+  "make trades, leave feedback, and check the feedback of other ValuED users.</p>" +
+  "<img src='Screenshot_9.jpg' alt='Propose trades, send Tokens and give feedback.'></li></ol>"
+
+const proposal_form = "<table><tr><td><label for='cc_offered'>Value in Tokens:</label><input type='text' id='cc_offered' placeholder='e.g. 3'></td>" +
+    "<td><label for='email'>Email address:</label><input type='text' id='email' placeholder='e.g. s1900000@ed.ac.uk, you@gmail.com...'></td></tr>"+
+  "<tr><td><label for='offer_reason'>Reason for transaction:</label><select id='offer_cat' name='offer_cat'>" +
+    "<option value='' selected disabled>choose category:</option>" +
+    "<option value='course'>Course-Related</option>" +
+    "<option value='extracurricular'>Other Academic</option>" +
+    "<option value='non-academic'>Non-Academic</option></select></td>" +
+  "<td><label for='proposal_type'>Wanted or offered?</label><select id='proposal_type' name='proposal_type'>" +
+    "<option value='' selected disabled>choose category:</option>" +
+    "<option value='(Wanted)'>Wanted</option>" +
+    "<option value='(Offered)'>Offered</option></select></td></tr>" +
+  "<tr><td colspan=2><textarea id='offer_reason' rows='4' placeholder='Details: e.g., Looking for a wake-up call the morning of the exam'></textarea></div></td></tr>" +
+  "<tr><td colspan=2><button  onclick='submit_proposal()'>Propose Trade</button><br>" +
+  "<div id='acknowledged'></div></td></tr></table>";
+
+const proposal_list = "<p id='filter_props'></p>" +
+  "<table width=90%><thead><tr><th width=8%>ID #</th><th width=8%>Price</th><th width=42%>Proposer</th><th rowspan=2 width=42%>Email</th></tr>" +
+  "<tbody id='off_list'>" +
+  "</tbody></table>";
+
+  const filter_propos = "<form>Filter proposals:&nbsp;&nbsp;&nbsp;" +
+  "<input type='radio' name='filter' id='f_none' onclick='filter_proposals()' checked> All Proposals&nbsp;&nbsp;&nbsp;" +
+  "<input type='radio' name='filter' id='f_self' onclick='filter_proposals()'> Only Mine&nbsp;&nbsp;&nbsp;" +
+  "<input type='radio' name='filter' id='f_others' onclick='filter_proposals()'> Except Mine</form>";
+
+const outside_view = "<center><div class='tab'>" +
+            "<table><tr><td><button class='tablinks' id='abt_but' onclick='openView(event, \"About\")'>About ValuED</button></td>" +
+            "<td><button class='tablinks' id='prop_but' onclick='openView(event, \"Proposals\")'>Proposals</button></td>" +
+            "<td><button class='tablinks' id='dat_but' onclick='openView(event, \"Data\")'>Data</button></td></tr></table>" +
+          "</tr></table></div>" +
+          "<div id='About' class='tabcontent'>" +
+            about_top +
+          "</div>" +
+          "<div id='Proposals' class='tabcontent'>" +
+            proposal_list +
+          "</div>" +
+          "<div id='Data' class='tabcontent'>" +
+            data_for_the_people +
+          "</div>";
+
+const admin_view = "<center><div class='tab'>" +
+            "<table><tr><td><button class='tablinks' id='ady_but' onclick='openView(event, \"Admin\")'>Admin</button></td>" +
+            "<td><button class='tablinks' id='prop_but' onclick='openView(event, \"Proposals\")'>Proposals</button></td>" +
+            "<td><button class='tablinks' id='abt_but' onclick='openView(event, \"About\")'>About</button></td>" +
+            "<td><button class='tablinks' id='dat_but' onclick='openView(event, \"Data\")'>Data</button></td></tr></table>" +
+          "</tr></table></div>" +
+		  "<div id='Admin' class='tabcontent'>" +
+		  	"<div class='a' id='create_admin'></div>" +
+		  	"<div class='a' id='remove_admin' ></div>" +
+		  	"<div class='a' id='register_num'></div>" +
+		  	"<div class='a' id='register_addr'></div>" +
+		  	"<div class='a' id='distribute'></div>" +
+        "<div class='a' id='lecture_codes'></div>" +
+          "</div>" +
+          "<div id='Proposals' class='tabcontent'>" +
+            proposal_list +
+          "</div>" +
+          "<div id='About' class='tabcontent'>" +
+            about_top +
+          "</div>" +
+          "<div id='Data' class='tabcontent'>" +
+            data_for_the_people +
+          "</div>";
+
+var times = 0;
+
+window.setInterval(function(){
+  /* This repeats every 3 secs, first updating the page's user model, then
+  the page itself */
+  // 1: update user model
+  if(web3.eth.coinbase){
+    modify_user("account", web3.eth.coinbase);
+    get_transactions();
+  }
+  get_offers();
+  update_status(user.account);
+  stud_token_bal();
+  totalNumOf_tokens_traded();
+  reputations();
+  check_lecture_info();
+  // 2. update page
+  if(user.account_ch){
+    // If the user logged in changes, wipe the old user model and rebuild
+    update_element("status1", "You are logged in as " + user.account );
+    user.account_ch = false;
+    user.balance = null;
+    user.balance_ch = true;
+    user.totaltr = null;
+    user.totaltr_ch = true;
+    user.rep = null;
+    user.rep_ch = true;
+    user.offer_list = [];
+    user.offer_count = 0;
+    //user.trans_hist = [];
+    user.sender_fbk_ch = [];
+    user.receiver_fbk_ch = [];
+    if(document.getElementById('proposal_list')) {
+      document.getElementById('proposal_list').innerHTML = proposal_list;
+    }
+    if(user.status==='ST' && document.getElementById('filter_proposals')) {
+      document.getElementById('filter_proposals').innerHTML = filter_propos;
+    }
+    if(document.getElementById("transactions")) {
+      document.getElementById("transactions").innerHTML = "  <tr>" +
+      "    <th width=5%>ID#</th>" +
+      "    <th width=17%>Time, Date</th>" +
+      "    <th width=19%>Sender</th>" +
+      "    <th width=19%>Receiver</th>" +
+      "    <th width=15%>Amount</th>" +
+      "    <th width=15%>Sender<br>Feedback</th>" +
+      "    <th width=15%>Receiver<br>Feedback</th>" +
+      "  </tr>";
+    }
+  }
+  if(user.status_ch || document.getElementById("status2").innerHTML == "" || !document.getElementById("vcat_info")){
+    update_element("status2", status_txt[user["status"]]);
+    refresh_prop_emails();
+    switch (user.status) {
+      default: // users with no account get nothing
+        if(document.getElementById("off_list")){
+          var o_l = document.getElementById("off_list").innerHTML;
+        }
+        document.getElementById("main_view").innerHTML = outside_view;
+        document.getElementById("vcat_info").innerHTML = about_vcat;
+        document.getElementById("off_list").innerHTML=o_l?o_l:"";
+        document.getElementById("filter_props").innerHTML = "";
+        document.getElementById("About").style.display = "block";
+        break;
+      case "NA": // same with users with unregistred accounts
+        if(document.getElementById("off_list")){
+          var o_l = document.getElementById("off_list").innerHTML;
+        }
+        document.getElementById("main_view").innerHTML = outside_view;
+        document.getElementById("vcat_info").innerHTML = about_vcat;
+        document.getElementById("off_list").innerHTML=o_l?o_l:"";
+        document.getElementById("filter_props").innerHTML = "";
+        document.getElementById("About").style.display = "block";
+        break;
+      case "ST": // students don't get the admin tools, but get student view
+        if(document.getElementById("off_list")){
+          var o_l = document.getElementById("off_list").innerHTML;
+        }
+        document.getElementById("main_view").innerHTML =
+        "<center>" +
+        "<div class='tab'>" +
+          "<table><tr><td><button class='tablinks' id='trad_but' onclick='openView(event, \"Trading\")'>Trading</button></td>" +
+            "<td><button class='tablinks' id='abt_but' onclick='openView(event, \"About\")'>About</button></td>" +
+            "<td><button class='tablinks' id='dat_but' onclick='openView(event, \"Data\")'>Data</button></td></tr></table>" +
+          "</div>" +
+          "<div id='current_lecture'></div>" +
+          "<div id='Trading' class='tabcontent'><h3>Trading</h3>" +
+
+            "<table>" +
+              "<tr>" +
+                "<td class='borderg' style='width:50%' valign='top'>" +
+                  "<table style='width:100%'>" +
+                    "<tr>" +
+                      "<td style='width:90%'><h3>Proposals</h3></td>" +
+                      "<td><button id='proposal_form_button' onclick='show_proposal_form()'>+</button></td>" +
+                    "</tr>" +
+                    "<tr>" +
+                      "<td colspan='2' id='proposal_form'></td>" +
+                    "</tr>" +
+                    "<tr>" +
+                      "<td colspan='2' id='proposal_list'>" + proposal_list + "</td>" +
+                    "</tr>" +
+                  "</table>" +
+                "</td>" +
+                "<td class='borderg' style='width:50%' valign='top'>" +
+                  "<table><tr><td><table style='width:100%'>" +
+                    "<tr>" +
+                      "<th width=33%>Balance</th>" +
+                      "<td id='balance' class='midnum'>--</td>" +
+                      "<th width=34%>Total Traded</th>" +
+                      "<td id='totaltr' class='midnum'>--</td>" +
+                      "<th width=33%>Reputation</th>" +
+                      "<td id='rep' class='midnum''>--</td>" +
+                    "</tr></table></td></tr>" +
+                    "<tr><td>" +
+                    "<h3>Transaction History</h3>" +
+                    "<table id='transactions' style='width:90%'>" +
+                      "<tr>" +
+                        "<th width=5%>ID #</th>" +
+                        "<th width=17%>Time, Date</th>" +
+                        "<th width=19%>Sender</th>" +
+                        "<th width=19%>Receiver</th>" +
+                        "<th width=15%>Amount</th>" +
+                        "<th width=15%>Sender Feedback</th>" +
+                        "<th width=15%>Receiver Feedback</th>" +
+                      "</tr>" +
+                    "</table>" +
+                    "</td></tr>" +
+                  "</table>" +
+                "</td>" +
+              "</tr>" +
+            "</table>" +
+          "</div>" +
+          "<div id='About' class='tabcontent'>" +
+            about_top +
+          "</div>" +
+          "<div id='Data' class='tabcontent'>" +
+            data_for_the_people +
+          "</div>" +
+        "</center>";
+        document.getElementById("vcat_info").innerHTML = about_vcat;
+        document.getElementById("off_list").innerHTML=o_l?o_l:"";
+        document.getElementById("filter_props").innerHTML = filter_propos;
+        document.getElementById("Trading").style.display = "block";
+        break;
+      case "OW": // the owner gets admin tools, plus the ability to make and unmake admins
+        if(document.getElementById("off_list")){
+          var o_l = document.getElementById("off_list").innerHTML;
+        }
+        document.getElementById("main_view").innerHTML = admin_view;
+        document.getElementById("vcat_info").innerHTML = about_vcat;
+        document.getElementById("create_admin").innerHTML = "<br><label " +
+        "for='newAdmin'>Address:</label><input type='text' id='newAdmin' " +
+        "placeholder='e.g. 0x1d1edbeco50fb7cca917a11575aabad900fa5432'></input>"
+        + "<br><br><button  onclick='add_admin()'>Create Admin</button><div " +
+        "id='confirm_admin'></div><br><br>";
+        document.getElementById("remove_admin").innerHTML = "<br><label" +
+        " for='deadAdmin'>Address:</label><input type='text' id='deadAdmin' " +
+        "placeholder='e.g.0x1deadadd1ac1dbaff4009050c1a11574effa900d1'></input>"
+        + "<br><br><button  onclick='remove_admin()'>Remove Admin</button><div "
+        + "id='destroy_admin'></div><br><br>";
+        document.getElementById("register_num").innerHTML = reg_num_html;
+        document.getElementById("register_addr").innerHTML = reg_addr_html;
+        document.getElementById("distribute").innerHTML = distrib_html;
+        document.getElementById("lecture_codes").innerHTML = lect_code_html;
+        document.getElementById("off_list").innerHTML=o_l?o_l:"";
+        document.getElementById("filter_props").innerHTML = "";
+        document.getElementById("Admin").style.display = "block";
+        break;
+      case "AD": //admins can register student numbers and addresses, and send studnts free tokens
+        if(document.getElementById("off_list")){
+          var o_l = document.getElementById("off_list").innerHTML;
+        }
+        document.getElementById("main_view").innerHTML = admin_view;
+        document.getElementById("vcat_info").innerHTML = about_vcat;
+        document.getElementById("create_admin").innerHTML = "";
+        document.getElementById("remove_admin").innerHTML = "";
+        document.getElementById("register_num").innerHTML = reg_num_html;
+        document.getElementById("register_addr").innerHTML = reg_addr_html;
+        document.getElementById("distribute").innerHTML = distrib_html;
+        document.getElementById("lecture_codes").innerHTML = lect_code_html;
+        document.getElementById("off_list").innerHTML=o_l?o_l:"";
+        document.getElementById("filter_props").innerHTML = "";
+        document.getElementById("Admin").style.display = "block";
+    }
+    user.status_ch = false; //reset the "user changed" flag
+  } // if the user is a student and bal, traded, or feedback change, update the display
+  if(user.balance_ch && user.status == "ST"){
+    document.getElementById("balance").innerHTML = user.balance;
+    user.balance_ch = false;
+  }
+  if(user.totaltr_ch && user.status == "ST"){
+    document.getElementById("totaltr").innerHTML = user.totaltr;
+    user.totaltr_ch = false;
+  }
+  if(user.rep_ch && user.status == "ST"){
+    document.getElementById("rep").innerHTML = user.rep;
+    user.rep_ch = false;
+  }
+  if(user.status == "ST"){ // also, in student view the transaction list must be kept up to date
+    for(var i = 1; i < user.trans_hist.length; i++){ // going through the history in the user model...
+      if(user.trans_hist[i]){
+        if(same_addr(user.account, user.trans_hist[i][0]) || same_addr(user.account, user.trans_hist[i][1])){
+          // if a transaction involving the user isn't on display yet, make
+          // lines for it and display them
+          var snd_fbk_id = "tr_" + i + "_snd_fbk"
+          if(!document.getElementById("transactions").innerHTML.includes(snd_fbk_id)){
+            document.getElementById("transactions").innerHTML += make_trans_rows(i);
+          }
+          else{ //also, if the feedback is added for an xisting transaction, update it
+            if(user.sender_fbk_ch[i]){
+              if(user.trans_hist[i][3] != -10 && user.trans_hist[i][4] != -10){
+                // Remember, changes to displayed feedback from this route are
+                // always changes left by the other party; so don't display it if
+                // the user hasn't given feedback also
+                document.getElementById(snd_fbk_id).innerHTML = user.trans_hist[i][3];
+                document.getElementById(snd_fbk_id).className = 'midnum';
+                if (user.trans_hist[i][3] == -10){
+                  console.log("Aha, a -10 has been detected");
+                } // there's a minor bug where a change to the displayed value of
+                // a feedback newly given by the user flips briefly from the new
+                // value to -10, then back. I am hunting its cause
+              }
+              user.sender_fbk_ch[i] = false;
+            }
+            if(user.receiver_fbk_ch[i]){
+              // Remember, changes to displayed feedback from this route are
+              // always changes left by the other party; so don't display it if
+              // the user hasn't given feedback also
+              if(user.trans_hist[i][3] != -10 && user.trans_hist[i][4] != -10){
+                document.getElementById("tr_" + i + "_rec_fbk").innerHTML = user.trans_hist[i][4];
+                document.getElementById("tr_" + i + "_rec_fbk").className = 'midnum';
+                if (user.trans_hist[i][4] == -10){
+                  console.log("Oho, a -10 has been detected");
+                }
+              }
+              user.receiver_fbk_ch[i] = false;
+            }
+          }
+        }
+      }
+      else{
+        console.log("Null DB entry at "+i);
+      }
+    }
+    // And, make sure the lecture number is checked
+    if(user.lec_no != 0){
+      if (document.getElementById("current_lecture").innerHTML == "") {
+        document.getElementById("current_lecture").innerHTML = "<br><table class='lec' width=90%>" +
+        "<tr><td width=80% rowspan=2>You can claim&nbsp;<span id='bribe'>??</span>&nbsp;" +
+        "Tokens for attending the current lecture, Lecture&nbsp;<span id='ln'>??</span>" +
+        ", by entering the lecture ID here. The lecture ID is given out in " +
+        "class, and is valid for the duration of the lecture, and a short " +
+        "time after.</td><td><input type='text' id='lect_id' placeholder='Lecture ID'>" +
+        "</td></tr><tr><td><button  onclick='enter_lecture_code()'>Enter Lecture ID</button></td></tr></table>" +
+        "<div id='lec_code_res'></div>";
+      }
+      update_element('bribe', user.lec_value);
+      update_element('ln', user.lec_no);
+    }
+    else{
+      document.getElementById("current_lecture").innerHTML = "";
+    }
+  }
+  // Proposals are updated for all users
+  if(user.offer_list.length-1 > user.offer_count){
+    var reps = {};
+    for(var j = user.offer_count+1; j<user.offer_list.length; j++){
+      if(user.offer_list[j][5]){
+        var mail_link = get_email_link(j);
+        var reason = parse_reason(user.offer_list[j][3])
+        var is_wanted = reason.type === '(Wanted)';
+        reps[user.offer_list[j][1]] = reps[user.offer_list[j][1]] ? reps[user.offer_list[j][1]] : get_report(user.offer_list[j][1]);
+        proposal_row = "<tr class='prop_row_" + j + "'>" +
+              "<td class='pt' align='center'>" + j + "</td>" +
+              "<td class='pt' align='center'>" + user.offer_list[j][0] + "</td>" +
+              "<td class='pt' align='center'>";
+        if (same_addr(user.offer_list[j][1], user.account)) {
+          proposal_row += "YOU";
+        }
+        else {
+          proposal_row += split_address(user.offer_list[j][1], 2)
+        }
+        proposal_row += "</td>" +
+              "<td class='pt' align='center' id='mail_link_" + j + "'>" + mail_link + "</td></tr>" +
+            "<tr class='prop_row_" + j + "'>" +
+              "<th rowspan=3 colspan=2>Reason</th>" +
+              "<td colspan=2>" + user.offer_list[j][3] + "</td><tr>";
+        if (same_addr(user.offer_list[j][1], user.account) == is_wanted) {
+          proposal_row += "<tr class='prop_row_" + j + " id='init_trade_" + j + "'>" +
+            '<td colspan=2><button id="init_tr_butt_' + j + '" onclick="init_trade(' + j + ', ' + is_wanted + ')">Initiate Trade</button></td></tr>' +
+            '<tr class="prop_row_' + j + '"><td colspan=4>' +
+              generate_trade_form(user.offer_list[j][1], !is_wanted, user.offer_list[j][0], j, reason.cat_val, reason.details) +
+            '</td></tr>';
+        }
+        else {
+          proposal_row += "<tr class='prop_row_" + j + " id='init_trade_" + j + "'></tr>"
+        }
+        proposal_row += "<tr class='prop_row_" + j + ">ghdskjghhj<td colspan=6 class='spacer'></td></tr>";
+      }
+      else{
+        proposal_row = "<div id='prop_row_"+j+"'></div>"
+      }
+      if(document.getElementById("off_list").innerHTML){
+        document.getElementById("off_list").innerHTML = proposal_row + document.getElementById("off_list").innerHTML;
+      }
+      else {
+        document.getElementById("off_list").innerHTML = proposal_row;
+      }
+      if (document.getElementById("trade_form_"+j)) {
+        document.getElementById("trade_form_"+j).style.display = 'none';
+      }
+    }
+    user.offer_count = user.offer_list.length-1;
+  }
+  times+=1;
+  if(times % 20 == 10){ // update the plots once a minute
+    //console.log("Plotting...");
+    draw_charts();
+  }
+}, 3000);
+
+draw_charts();
+
+function show_proposal_form() {
+  if(document.getElementById("proposal_form")) {
+    if(document.getElementById("proposal_form").innerHTML === ""){
+      document.getElementById("proposal_form").innerHTML = proposal_form;
+      document.getElementById("proposal_form_button").innerHTML = "Close";
+    }
+    else {
+      document.getElementById("proposal_form").innerHTML = "";
+      document.getElementById("proposal_form_button").innerHTML = "+";
+    }
+  }
+}
+
+function switch_proposal_type() {
+  if(document.getElementById("proposal_form")) {
+    switch (document.getElementById("proposal_type").value) {
+      case "(Wanted)":
+        document.getElementById("proposal_explanation").innerHTML = "Is there " +
+          "something you want? Probably! Could it be that someone else in the " +
+          "ValuED network might be able to provide it to you, in exchange for a " +
+          "quantity of Tokens, because while these Tokens are intrinsically " +
+          "meaningless, they have value because other people believe that other " +
+          "people believe they do? Maybe! Perhaps you want an alarm call before " +
+          "your exam, or need to borrow a charger for your laptop, or want to buy " +
+          "a second-hand textbook. It's up to you!";
+          document.getElementById("tok_off").innerHTML = proposal_price;
+          document.getElementById("min_part").innerHTML = "";
+          document.getElementById("tok_off_exp").innerHTML = "How many Tokens will you pay?";
+          document.getElementById("min_part_exp").innerHTML = "";
+          document.getElementById("max_part_exp").innerHTML = "Is this something " +
+            "you just need one of, like a textbook? Or do you need a few times, like " +
+            "hints on how to debug Python code? Or unlimited times, like a small " +
+            "gesture of solidarity in a cold, uncaring world?";
+          document.getElementById("offer_reason").placeholder = "Details: e.g., " +
+            "'Looking for a wake-up call the morning of the exam'"
+        break;
+      case "(Offered)":
+        document.getElementById("proposal_explanation").innerHTML = "Offer goods " +
+          "and services for Tokens which are only meaningful because other people " +
+          "believe that other people believe that other people believe that other " +
+          "people believe they're meaningful! Just like in capitalism, except without " +
+          "bosses pocketing most of the value of your labour for themselves! Maybe you have really good " +
+          "lecture notes, or you can explain the thing everyone else is stuck on. " +
+          "Maybe you can listen to someone in a different course read their essay " +
+          "and tell them when they aren't being clear. Maybe you have a full-up " +
+          "stamp card for a free bratwurst. It's up to you!";
+          document.getElementById("tok_off").innerHTML = proposal_price;
+          document.getElementById("min_part").innerHTML = "";
+          document.getElementById("tok_off_exp").innerHTML = "How much are you offering your good or service for?";
+          document.getElementById("min_part_exp").innerHTML = "";
+          document.getElementById("max_part_exp").innerHTML = "If you're selling a " +
+            "physical item, how many do you have to sell? If you're selling a service, " +
+            "how many times are you willing to provide it.";
+          document.getElementById("offer_reason").placeholder = "Details: e.g., " +
+            "'I can explain backpropagation to you'"
+        break;
+      case "(Project)":
+        document.getElementById("proposal_explanation").innerHTML = "Propose a " +
+          "group project and ask for volunteers to join you. It could be something " +
+          "informal, like meeting up for a chat after a lecture, or something more " +
+          "elaborate, like organising a movie night or a guest lecture. With a " +
+          "project proposal, you're not asking for Tokens, or offering them, you're" +
+          "just trying to make a thing happen because you think it should happen, " +
+          "but you can't do it alone.";
+          document.getElementById("tok_off").innerHTML = "";
+          document.getElementById("min_part").innerHTML = proposal_min;
+          document.getElementById("tok_off_exp").innerHTML = "";
+          document.getElementById("min_part_exp").innerHTML = "When the minimum" +
+            " number of participants is reached, the project becomes active.";
+          document.getElementById("max_part_exp").innerHTML = "When the maximum" +
+            " number of participants is reached, no new participants can join. " +
+            "Enter 'inf' if there is no maximum.";
+          document.getElementById("offer_reason").placeholder = "Details: e.g., " +
+            "'Let's climb Arthur's Seat together'";
+        break;
+      default:
+        document.getElementById("proposal_explanation").innerHTML = "";
+        document.getElementById("tok_off").innerHTML = proposal_price;
+        document.getElementById("min_part").innerHTML = proposal_min;
+        document.getElementById("tok_off_exp").innerHTML = "";
+        document.getElementById("min_part_exp").innerHTML = "";
+        document.getElementById("max_part_exp").innerHTML = "";
+        document.getElementById("offer_reason").placeholder = "Details";
+    }
+  }
+}
+
+function same_addr(addr1, addr2){
+  // checks that two addresses are the same, regardless of the case of AbcDEf
+  if (addr1 && addr2){
+    return addr1.toUpperCase() == addr2.toUpperCase();
+  }
+  return false;
+}
+
+function split_address(addr, nrows) {
+  // In order to display addresses in constrained spaces, this splits an
+  // address over `nrows` rows
+  var row_len = Math.ceil(42/nrows);
+  var address_that_has_been_split = '';
+  if(is_address(addr)){
+    for (var i = 0; i < nrows; i++) {
+      if ((i+1)*row_len <= 42) {
+        address_that_has_been_split += addr.slice(i*row_len, (i+1)*row_len)+"<br>";
+      }
+      else {
+        address_that_has_been_split += addr.slice(i*row_len);
+      }
+    }
+  }
+  return address_that_has_been_split;
+}
+
+function check_for_trade(addr){
+  document.getElementById("an_address").value = addr;
+  show_report();
+}
+
+function make_trans_rows(i){
+  if (!user.trans_hist[i] || i==0) {
+    console.log("Trying to make a row for a nonexistent transaction: " + i);
+    return;
+  }
+  var rows = "<tr class='hist'><td class='pt'>" + user.trans_hist[i][5] +
+    "</td><td class='pt'>" + time_str(user.trans_hist[i][7]) + "</td>"
+  if(same_addr(user.trans_hist[i][0], user.account)){
+    rows += "<td class='midnum pt'>YOU</td>"
+  }
+  else{
+    rows += "<td class='pt'><a title='click to copy' onclick='navigator.clipboard.writeText(\"" + user.trans_hist[i][0] + "\"); this.title=\"COPIED\"'>" + split_address(user.trans_hist[i][0], 5) + "</a></td>"
+  }
+  if(same_addr(user.trans_hist[i][1], user.account)){
+    rows += "<td class='midnum pt'>YOU</td>"
+  }
+  else{
+    rows += "<td class='pt'><a title='click to copy' onclick='navigator.clipboard.writeText(\"" + user.trans_hist[i][1] + "\"); this.title=\"COPIED\"'>" + split_address(user.trans_hist[i][1], 5) + "</a></td>"
+  }
+  rows += "<td class='midnum pt'>" + user.trans_hist[i][6] + "<div class='s'></div></td>";
+  var elem = "tr_" + i + "_snd_fbk";
+  if(user.trans_hist[i][3]== -10){
+    if(same_addr(user.trans_hist[i][0], user.account)){
+      rows += "<td class='pt' id = '" + elem + "'><select id='" + elem + "_sel' onchange='leave_feedback(this.value, " + i + ", \"" + elem + "\")'>" +
+        "<option value='' selected disabled>Give Feedback:</option>" +
+        "<option value='5'>5</option>" +
+        "<option value='4'>4</option>" +
+        "<option value='3'>3</option>" +
+        "<option value='2'>2</option>" +
+        "<option value='1'>1</option>" +
+        "<option value='0'>0</option>" +
+        "<option value='-1'>-1</option>" +
+        "<option value='-2'>-2</option>" +
+        "<option value='-3'>-3</option>" +
+        "<option value='-4'>-4</option>" +
+        "<option value='-5'>-5</option>" +
+        "</select><div id='" + elem + "_x'></div></td>";
+    }
+    else if (same_addr(user.trans_hist[i][1], user.account) && user.trans_hist[i][4]== -10) {
+      rows += "<td class='pt' id = 'tr_" + i + "_snd_fbk'><b>Give feedback to reveal</b><div id='" + elem + "_x'></div></td>";
+    }
+    else{
+      rows += "<td class='pt' id = 'tr_" + i + "_snd_fbk'>Not yet given<div id='" + elem + "_x'></div></td>";
+    }
+  }
+  else if (same_addr(user.trans_hist[i][1], user.account) && user.trans_hist[i][4]== -10) {
+    rows += "<td class='pt' id = 'tr_" + i + "_snd_fbk'><b>Give feedback to reveal</b><div id='" + elem + "_x'></div></td>";
+  }
+  else {
+    rows += "<td class='midnum pt' id = 'tr_" + i + "_snd_fbk'>" + user.trans_hist[i][3] + "<div id='" + elem + "_x'></div></td>";
+  }
+  elem = "tr_" + i + "_rec_fbk";
+  if(user.trans_hist[i][4]== -10){
+    if(same_addr(user.trans_hist[i][1], user.account)){
+      elem = "tr_" + i + "_rec_fbk";
+      rows += "<td class='pt' id = '" + elem + "'><select id='tr_" + i +
+        "_rec_fbk_sel' onchange='leave_feedback(this.value, " + i + ", \"" + elem + "\")'>" +
+        "<option value='' selected disabled>Give Feedback:</option>" +
+        "<option value='5'>5</option>" +
+        "<option value='4'>4</option>" +
+        "<option value='3'>3</option>" +
+        "<option value='2'>2</option>" +
+        "<option value='1'>1</option>" +
+        "<option value='0'>0</option>" +
+        "<option value='-1'>-1</option>" +
+        "<option value='-2'>-2</option>" +
+        "<option value='-3'>-3</option>" +
+        "<option value='-4'>-4</option>" +
+        "<option value='-5'>-5</option>" +
+        "</select><div id='" + elem + "_x'></div></td>"
+    }
+    else if (same_addr(user.trans_hist[i][0], user.account) && user.trans_hist[i][3]== -10) {
+      rows += "<td class='pt' id = 'tr_" + i + "_rec_fbk'><b>Give feedback to reveal</b><div id='" + elem + "_x'></div></td>";
+    }
+    else{
+      rows += "<td class='pt' id = 'tr_" + i + "_rec_fbk'>Not yet given<div id='" + elem + "_x'></div></td>";
+    }
+  }
+  else if (same_addr(user.trans_hist[i][0], user.account) && user.trans_hist[i][3]== -10) {
+    rows += "<td class='pt' id = 'tr_" + i + "_rec_fbk'><b>Give feedback to reveal</b><div id='" + elem + "_x'></div></td>";
+  }
+  else {
+    rows += "<td class='midnum pt' id = 'tr_" + i + "_rec_fbk'>" + user.trans_hist[i][4] + "<div id='" + elem + "_x'></div></td>";
+  }
+  rows += "</tr><tr class='hist'><td class='r' colspan=2>Reason:</th><td colspan=5>" +
+    user.trans_hist[i][2] + "</td></tr>";
+  return rows;
+}
+
+//***** "result" needs to be displayed on the main page of the UI. At the momnet it's shown only on the console.
+function get_owner() {
+  var res= document.getElementById("owner");
+  var f= myContract.owner.call( function(err, result) {
+    if (!err) {
+      document.getElementById("owner").innerHTML = "Contract owned by " + result;
+    }
+  });
+}
+
+//Looks fine.
+function register_std_num(){
+  var stud_num = document.getElementById("stud_num").value;
+  console.log("register_std_num() was called")
+  //check if the admin has signed it.
+  myContract.valid_admins.call(user.account , function(error, result){
+    if(error) {
+      alert("Error: Was not able to communicate with contract :(")
+      console.log(error)
+    }
+    else {
+      if (!result) {
+        console.log(user.account  + " isn't an admin.");
+        document.getElementById("regnumres").innerHTML = "I'mma keep it real with ya chief. You're not an admin and you can't do that";
+      }
+      else {
+        myContract.register_std_num(stud_num,{from:user.account , gas:4200000},function(error,result){
+          if(error) {
+            alert("Error: Transaction has not been sent");
+            console.log(error);
+          }
+          else {
+            document.getElementById("regnumres").innerHTML = "Student s" + stud_num + " has been registered";
+            console.log(result)
+          }
+        })
+      }
+    }
+  })
+}
+
+function register_std_addr(){
+  console.log("register_std_addr() was called")
+  var stud_num = document.getElementById("stud_num2").value;
+  var stud_addr = document.getElementById("stud_addr").value;
+  if(stud_num == '' || stud_addr == '') {
+    document.getElementById("regaddrres").innerHTML = "All fields must be filled in!";
+    return;
+  }
+  myContract.valid_student_num.call(stud_num, function(error,result){
+    if(error) {
+      alert("Error: Was not able to retrieve details of your account")
+      console.log(error)
+    }
+    else {
+      console.log(result)
+      if(!result[0]) {
+        document.getElementById("regaddrres").innerHTML = "That student number is not registered.";
+        return;
+      }
+      if(result[1]) {
+        document.getElementById("regaddrres").innerHTML = "That student number already has an address assigned.";
+        return;
+      }
+      myContract.valid_student_addr.call(stud_addr, function(error,result){
+        if(error) {
+          alert("Error: Was not able to retrieve details of your account")
+          console.log(error)
+        }
+        else {
+          if(result){
+            document.getElementById("regaddrres").innerHTML = "That address has already been assigned.";
+          }
+          else{
+            myContract.register_std_addr(stud_addr, stud_num, {from:user.account , gas:4200000},function(error,result){
+              if(error) {
+                alert("Error: Transaction has not been sent")
+                console.log(error)
+              }
+              else {
+                console.log("Student address registered at " + result)
+                document.getElementById("regaddrres").innerHTML = "Student " + stud_num + "'s address, " + stud_addr + ", is now registered with ValuED";
+              }
+            })
+          }
+        }
+      })
+    }
+  })
+}
+
+// Helper function which checks for correctly formatted addresses
+function is_address(str){
+  var re = new RegExp('^0(x|X)[0-9a-fA-F]{40}$');
+  return re.test(str);
+}
+
+function get_transactions(){
+  // asynchronous call to smart contract, gets number of transactions, so loop
+  // can be defined (number is `result`)
+  myContract.totalNum_transactions.call(function(error,result){
+    // anonymous function to process output of async call
+    if(error) {
+      alert("Error: Was not able to communicate with contract")
+      console.log(error)
+    }
+    else {
+      var total_transactions = result;
+      // loop iterates over all transactions in record. Not that a separate call
+      // to the contract is made for each transaction
+      for (var i = 1;i < total_transactions + 1 ;i++){
+        // asynchronous call to contract, retrieving the i-th transaction,
+        // checks for transactions involving the address given, dsplays those
+        // that contain the given address as sender OR recipient
+        if(!user.trans_hist[i] || user.trans_hist[i][3]== -10 || user.trans_hist[i][4]== -10){
+          myContract.transactions.call(i, function(error,result){
+            // anonymous function to process output of async call
+            if(error) {
+              alert("Error: Was not able to communicate with contract")
+              console.log(error)
+            }
+            else {
+              // Gather all transactions to local db
+              if(!user.trans_hist[result[5]]){
+                for(var j = 3; j < result.length-1; j++){
+                  result[j] = parseInt(result[j]);
+                }
+                user.trans_hist[result[5]] = result;
+                user.sender_fbk_ch[result[5]] = false;
+                user.receiver_fbk_ch[result[5]] = false;
+              }
+              else{
+                if(get(user.trans_hist[result[5]][3]) != get(result[3])){
+                  user.trans_hist[result[5]][3] = parseInt(result[3]);
+                  user.sender_fbk_ch[result[5]] = true;
+                }
+                if(get(user.trans_hist[result[5]][4]) != get(result[4])){
+                  user.trans_hist[result[5]][4] = parseInt(result[4]);
+                  user.receiver_fbk_ch[result[5]] = true;
+                }
+              }
+            }
+          });
+        }
+      }
+    }
+  });
+}
+
+function send_token(id){
+  // Take inputs from the form
+  console.log("send_token(" + id + ") called");
+  var cognocents = document.getElementById("to_send_"+id).value;
+  var prop_no = document.getElementById("prop_id_"+id).value;
+  var recipient = document.getElementById("an_address_"+id).value;
+  var cat = document.getElementById("category_"+id).value;
+  var reason = document.getElementById("reason_"+id).value;
+  var time = (new Date(Date.now())).toString();
+  // Before sending values to the smart contract, let's see if they make sense.
+  // There are some checks (if the sender has enough funds, if the recipient
+  // exists) which can only be done by the contract, but these can be done locally
+  if(cognocents === '' || recipient === '' || reason === '' || cat === ''|| prop_no === '') {
+    document.getElementById("receipt_"+id).innerHTML = "Error: All fields must be filled in!";
+    return;
+  }
+  if(time === ''){
+    document.getElementById("receipt_"+id).innerHTML = "Error: ValuED is unable to " +
+    "determine the time.";
+    return;
+  }
+  if(!is_address(recipient)){
+    document.getElementById("receipt_"+id).innerHTML = "Error: That is not a valid" +
+      " address.<br>Addresses are 160-bit hexadecimal numbers; they begin with " +
+      "'0x' followed by 40 hexadecimal digits. A hexadecimal digit can be " +
+      "represented as a numeral 0-9, or a letter a-f (repressenting 10-15)";
+    return;
+  }
+  if(isNaN(parseInt(cognocents)) || parseInt(cognocents) != Number(cognocents)){
+    document.getElementById("receipt_"+id).innerHTML = "Error: You must pay a whole " +
+    "number of Tokens";
+    return;
+  }
+  if(parseInt(cognocents) < 1) {
+    document.getElementById("receipt_"+id).innerHTML = "Error: You must send at " +
+      "least one CognoCent";
+    return;
+  }
+  if(same_addr(user.account, recipient)) {
+    document.getElementById("receipt_"+id).innerHTML = "Error: You cannot send " +
+      "yourself money";
+    return;
+  }
+  categories = {'course': 'COURSE-RELATED: ',
+    'extracurricular': 'OTHER ACADEMIC: ',
+    'non-academic': 'NON-ACADEMIC: '
+  };
+  reason = categories[cat] + reason
+  console.log("receipt_"+id);
+  document.getElementById("receipt_"+id).innerHTML = "Confirm trade in MetaMask"
+  // The contract doesn't actually return an error if you try to pay more than
+  // you have; the transaction just silently fails. Same if you send to an
+  // unregistered address
+  myContract.student_token_balance.call(user.account , function(error, result){
+    if(error) {
+      alert("Error: Was not able to communicate with contract :(")
+      console.log(error)
+    }
+    else {
+      var bal = result;
+      if(parseInt(bal) < parseInt(cognocents)) {
+        document.getElementById("receipt_"+id).innerHTML = "Error: You cannot" +
+        " send " + cognocents + " Tokens; your account balance is " + bal +
+        " Tokens";
+        alert("Error: Insufficient funds :(")
+      }
+      else {
+        myContract.valid_student_addr.call(recipient, function(error, result){
+          if(error) {
+            alert("Error: Was not able to communicate with contract :(")
+            console.log(error)
+          }
+          else {
+            if(!result){
+              document.getElementById("receipt_"+id).innerHTML = "Error: There is " +
+                "no account with the address " + recipient;
+              alert("Error: Recipient not found :(")
+            }
+            else {
+              myContract.proposals.call(prop_no, function(error, result){
+                if(error) {
+                  alert("Error: Was not able to communicate with contract :(")
+                  console.log(error)
+                }
+                else {
+                  if(!result[5]){
+                    document.getElementById("receipt_"+id).innerHTML = "Error: There" +
+                      " is active proposal #" + prop_no;
+                    alert("Error: Proposal not found :(")
+                  }
+                  else if (!same_addr(user.account, result[1]) && !same_addr(recipient, result[1])) {
+                    document.getElementById("receipt_"+id).innerHTML = "Error: Neither you nor the recipient are the proposer of proposal #" + prop_no;
+                  }
+                  else{
+                    // If the inputs check out, leave a note in the log, then send the transaction
+                    console.log('sending ' + cognocents + ' to ' + recipient + ' because ' + reason);
+                    myContract.send_token(cognocents, recipient, reason, time, prop_no, {from:user.account , gas:4200000}, function(error,result){
+                      if(error) {
+                        var message = error['message'];
+                        // Some of the error messages the contract gives are not super user-friendly,
+                        // so let's rewrite them:
+                        if(message.startsWith('Error: WalletMiddleware - Invalid "from"')) {
+                          message = "Error: You need to be logged in to this page, from the same address that you're logged in to MetaMask."
+                        }
+                        alert(message)
+                        document.getElementById("receipt_"+id).innerHTML = message;
+                        console.log(error);
+                      }
+                      else {
+                        document.getElementById("receipt_"+id).innerHTML = "Confirmed: You sent " + cognocents + ' Tokens to:<br>' + recipient + '<br>For the following reason:<br>' + reason
+                      }
+                    })
+                  }
+                }
+              })
+            }
+          }
+        })
+      }
+    }
+  })
+}
+
+function leave_feedback(score, transaction, elem){
+  // Before sending values to the smart contract, let's see if they make sense.
+  if(isNaN(parseInt(transaction)) || parseInt(transaction) != Number(transaction) || parseInt(transaction) < 0){
+    document.getElementById(elem + "_x").innerHTML = "not a valid transaction ID.";
+    return;
+  }
+  if(isNaN(parseInt(score)) || parseInt(score) != Number(score)){
+    console.log(score);
+    document.getElementById(elem + "_x").innerHTML = "must be whole number";
+    return;
+  }
+  // We need to know if this is sender or receiver feedback, so we can correctly
+  // update the table
+  var role = 4;
+  if(elem.includes('snd')){
+    role = 3;
+  }
+  myContract.min_score(function(error, result){
+    if(error) {
+      alert("Error: Was not able to communicate with contract :(")
+      console.log(error)
+    }
+    else {
+      var min = get(result);
+      myContract.max_score(function(error, result){
+        if(error) {
+          alert("Error: Was not able to communicate with contract :(")
+          console.log(error)
+        }
+        else {
+          var max = get(result);
+          if ((score < min) || (score > max)) {
+            alert("Error: Score is out of range :(")
+            document.getElementById(elem + "_x").innerHTML = "out of range";
+          }
+          else {
+            myContract.transactions.call(transaction, function(error, result){
+              if(error) {
+                alert("Error: Was not able to communicate with contract :(")
+                console.log(error)
+              }
+              else {
+                var you = -1
+                for(var i = 0; i<2; i++) {
+                  if(same_addr(result[i], user.account)) {
+                    you = i
+                  }
+                }
+                if(you == -1){
+                  console.log(user.account)
+                  document.getElementById(elem + "_x").innerHTML = "Not your transaction" + transaction;
+                  alert("Error: None of your business! >:(")
+                }
+                else if (result[you+3]!='-10') {
+                document.getElementById(elem + "_x").innerHTML = "Already gave feedback" + transaction;
+                  alert("Error: Already done! :(")
+                }
+                else {
+                  document.getElementById(elem + "_x").innerHTML = "Confirm in MetaMask";
+                  myContract.leave_feedback(transaction, score, {from:user.account , gas:4200000}, function(error, result){
+                    if(error) {
+                      console.log(error)
+                      document.getElementById(elem + "_sel").value = ''
+                      document.getElementById(elem + "_x").innerHTML = "An error occurred";
+                    }
+                    else {
+                      user.trans_hist[transaction][role] = parseInt(score);
+                      document.getElementById(elem).innerHTML = score;
+                      document.getElementById(elem).className = "midnum";
+                      var opp_elem;
+                      var opp_role;
+                      if(role==3){
+                        opp_elem = elem.replace("snd", "rec");
+                        opp_role = 4;
+                      }
+                      else {
+                        opp_elem = elem.replace("rec", "snd");
+                        opp_role = 3;
+                      }
+                      if(user.trans_hist[transaction][opp_role]== -10){
+                        document.getElementById(opp_elem).innerHTML = "Not yet given";
+                      }
+                      else{
+                        document.getElementById(opp_elem).innerHTML = user.trans_hist[transaction][opp_role];
+                        document.getElementById(opp_elem).className = "midnum";
+                        if (document.getElementById(opp_elem).innerHTML == -10) {
+                          console.log("Dude wtf a -10");
+                        }
+                      }
+                    }
+                  })
+                }
+              }
+            })
+          }
+        }
+      })
+    }
+  })
+}
+
+function get(n){
+  if(!n.c){
+    return n;
+  }
+  return n.c[0] * n.s
+}
+
+function add_admin() {
+  // Take inputs from the form
+  var new_admin = document.getElementById("newAdmin").value;
+  // Before sending values to the smart contract, let's see if they make sense.
+  // There are some checks (if the sender has enough funds, if the recipient
+  // exists) which can only be done by the contract, but these can be done locally
+  console.log(new_admin + " to be adminified!");
+  if(new_admin === '') {
+    document.getElementById("confirm_admin").innerHTML = "Error: All fields must be filled in!";
+    return;
+  }
+  if(!is_address(new_admin)){
+    document.getElementById("confirm_admin").innerHTML = "Error: That is not a valid address.<br>Addresses are 160-bit hexadecimal numbers; they begin with '0x' followed by 40 hexadecimal digits. A hexadecimal digit can be represented as a numeral 0-9, or a letter a-f (repressenting 10-15)";
+    return;
+  }
+  myContract.owner.call(function(error, result){
+    if(error){
+      alert("Error: Was not able to communicate with contract :(")
+      console.log(error);
+      alert(error)
+    }
+    else {
+      if (!same_addr(result, user.account)) {
+        document.getElementById("confirm_admin").innerHTML = "Error: Only the Contract Owner can add and remove admins.";
+        alert("Error: not allowed")
+      }
+      else{
+        myContract.add_admin(new_admin,  {from:user.account , gas:4200000}, function(error, result){
+          console.log("myContract.add_admin has been called");
+          if(error) {
+            alert(error)
+            console.log(error)
+          }
+          else {
+            document.getElementById("confirm_admin").innerHTML = new_admin + " is now an Admin";
+          }
+        })
+      }
+    }
+  })
+}
+
+function remove_admin() {
+  // Take inputs from the form
+  var dead_admin = document.getElementById("deadAdmin").value;
+  // Before sending values to the smart contract, let's see if they make sense.
+  // There are some checks (if the sender has enough funds, if the recipient
+  // exists) which can only be done by the contract, but these can be done locally
+  console.log(dead_admin + " to be deadminified!");
+  if(dead_admin === '') {
+    document.getElementById("destroy_admin").innerHTML = "Error: All fields must be filled in!";
+    return;
+  }
+  if(!is_address(dead_admin)){
+    document.getElementById("destroy_admin").innerHTML = "Error: That is not a valid address.<br>Addresses are 160-bit hexadecimal numbers; they begin with '0x' followed by 40 hexadecimal digits. A hexadecimal digit can be represented as a numeral 0-9, or a letter a-f (repressenting 10-15)";
+    return;
+  }
+  myContract.owner.call(function(error, result){
+    if(error){
+      alert("Error: Was not able to communicate with contract :(")
+      console.log(error);
+      alert(error)
+    }
+    else {
+      if (!same_addr(result, user.account)) {
+        document.getElementById("destroy_admin").innerHTML = "Error: Only the Contract Owner can add and remove admins.";
+        alert("Error: not allowed")
+      }
+      else{
+        myContract.valid_admins(dead_admin, function(error, result){
+          if(error) {
+            alert("Error: Was not able to communicate with contract :(")
+            console.log(error)
+          }
+          else {
+            if(!result) {
+              document.getElementById("destroy_admin").innerHTML = "Error: " + dead_admin + " wasn't an admin anyway."
+              alert("Error: Not an admin :(")
+            }
+            else {
+              myContract.add_admin(dead_admin,  {from:user.account , gas:4200000}, function(error, result){
+                console.log("myContract.add_admin has be called");
+                if(error) {
+                  alert(error)
+                  console.log(error)
+                }
+                else {
+                  document.getElementById("destroy_admin").innerHTML = dead_admin + " is no longer an Admin";
+                }
+              })
+            }
+          }
+        })
+      }
+    }
+  })
+}
+
+function distribute_token(){
+  // Take inputs from the form
+  var cognocents = document.getElementById("redistribute").value;
+  var recipient = document.getElementById("recip_addr2").value;
+  // Before sending values to the smart contract, let's see if they make sense.
+  // There are some checks (if the sender has enough funds, if the recipient
+  // exists) which can only be done by the contract, but these can be done locally
+  if(cognocents === '' || recipient === '') {
+    document.getElementById("redistributed").innerHTML = "Error: All fields must be filled in!";
+    return;
+  }
+  if(!is_address(recipient)){
+    document.getElementById("redistributed").innerHTML = "Error: That is not a valid address.<br>Addresses are 160-bit hexadecimal numbers; they begin with '0x' followed by 40 hexadecimal digits. A hexadecimal digit can be represented as a numeral 0-9, or a letter a-f (repressenting 10-15)";
+    return;
+  }
+  if(isNaN(parseInt(cognocents)) || parseInt(cognocents) != Number(cognocents)){
+    document.getElementById("redistributed").innerHTML = "Error: You must pay a whole number of Tokens";
+    return;
+  }
+  if(parseInt(cognocents) < 1) {
+    document.getElementById("redistributed").innerHTML = "Error: You must send at least one CognoCent";
+    return;
+  }
+  // The contract doesn't actually return an error if you try to pay more than
+  // you have; the transaction just silently fails. Same if you send to an
+  // unregistered address
+  myContract.valid_admins(user.account , function(error, result){
+    if(error) {
+      alert("Error: Was not able to communicate with contract :(")
+      console.log(error)
+    }
+    else {
+      if (!result) {
+        document.getElementById("redistributed").innerHTML = "You are not an admin. Only admins can perform this action.";
+      }
+      else {
+        myContract.valid_student_addr.call(recipient, function(error, result){
+          if(error) {
+            alert("Error: Was not able to communicate with contract :(")
+            console.log(error)
+          }
+          else {
+            if(!result){
+              document.getElementById("redistributed").innerHTML = "Error: There is no account with the address " + recipient;
+              alert("Error: Recipient not found :(")
+            }
+            else {
+              // If the inputs check out, leave a note in the log, then send the transaction
+              console.log('sending ' + cognocents + ' to ' + recipient);
+              myContract.distribute_token(recipient, cognocents, {from:user.account , gas:4200000}, function(error,result){
+                if(error) {
+                  var message = error['message'];
+                  // Some of the error messages the contract gives are not super user-friendly,
+                  // so let's rewrite them:
+                  if(message.startsWith('Error: WalletMiddleware - Invalid "from"')) {
+                    message = "Error: You need to be logged in to this page, from the same address that you're logged in to MetaMask."
+                  }
+                  alert(message)
+                  document.getElementById("redistributed").innerHTML = message;
+                  console.log(error);
+                }
+                else {
+                  document.getElementById("redistributed").innerHTML = "Confirmed: You assigned " + cognocents + ' Tokens to ' + recipient
+                }
+              })
+            }
+          }
+        })
+      }
+    }
+  })
+}
+
+function stud_token_bal(){
+  //given student's address it reads the content of "student_token_balance" in the contract and returns a value
+  myContract.valid_student_addr.call(user.account , function(error, result){
+    if(error) {
+      console.log(error)
+    }
+    else {
+      if(result) {
+        myContract.student_token_balance.call(user.account , function(error, result){
+          if(error) {
+            alert("Error: Was not able to communicate with contract :(")
+            console.log(error)
+          }
+          else {
+            modify_user("balance", result);
+          }
+        })
+      }
+      else {
+        modify_user("balance", null);
+      }
+    }
+  })
+}
+
+function totalNumOf_tokens_traded(){
+  //given student's address it reads the content of "student_token_balance" in the contract and returns a value
+  myContract.valid_student_addr.call(user.account , function(error, result){
+    if(error) {
+      console.log(error)
+    }
+    else {
+      if(result) {
+        myContract.totalNumOf_tokens_traded.call(user.account , function(error, result){
+          if(error) {
+            alert("Error: Was not able to communicate with contract :(")
+            console.log(error)
+          }
+          else {
+            modify_user("totaltr", result);
+          }
+        })
+      }
+      else {
+        modify_user("totaltr", null);
+      }
+    }
+  })
+}
+
+function reputations(){
+  //given student's address it reads the content of "reputations" in the contract and returns a value.
+  myContract.valid_student_addr.call(user.account , function(error, result){
+    if(error) {
+      console.log(error)
+    }
+    else {
+      if(result) {
+        myContract.reputations.call(user.account , function(error, result){
+          if(error) {
+            alert("Error: Was not able to communicate with contract :(")
+            console.log(error)
+          }
+          else {
+            modify_user("rep", result);
+          }
+        })
+      }
+      else {
+        modify_user("rep", null);
+      }
+    }
+  })
+}
+
+function draw_charts(){
+  /* Plots all charts*/
+  // First, a chart showing the frequencies of transaction values
+  var amounts = user.trans_hist.slice(1).map(transac => transac[6]);
+  var amt_tots = {};
+  for(var i =0; i <amounts.length; i++){
+    if (amounts[i]>0){
+      amt_tots[amounts[i]] = amt_tots[amounts[i]] ? amt_tots[amounts[i]]+1 : 1;
+    }
+  }
+  trade_vals_x = Object.keys(amt_tots).sort();
+  trade_vals_y = trade_vals_x.map(x_val => amt_tots[x_val]);
+  barchart(trade_vals_x, trade_vals_y, "value of trade", "frequency", "rgba(0, 0, 0, 0.6)", "rgba(0, 0, 0, 1)", "tradeVals");
+  // Second, frequencies of feedback values
+  var fbks = user.trans_hist.slice(1).map(transac => transac[3]).concat(user.trans_hist.map(transac => transac[4]));
+  var fbk_tots = {'-5':0,'-4':0,'-3':0,'-2':0,'-1':0,'0':0,'1':0,'2':0,'3':0,'4':0,'5':0};
+  for(var i =0; i <fbks.length; i++){
+    if((fbks[i]>= -5)&&(fbks[i]<=5)){
+      fbk_tots[fbks[i].toString()] += 1;
+    }
+  }
+  fbk_vals_x = [-5,-4,-3,-2,-1,0,1,2,3,4,5];
+  fbk_vals_y = fbk_vals_x.map(x_val => fbk_tots[x_val]);
+  barchart(fbk_vals_x, fbk_vals_y, "feedback level", "frequency", "rgba(255, 0, 0, 0.6)", "rgba(255, 0, 0, 1)", "fbVals");
+  // Third, how many trades of each category?
+  cat_counts = [0,0,0]
+  cat_starts = ['COURSE-RELATED: ', 'OTHER ACADEMIC: ', 'NON-ACADEMIC: ']
+  for(var i=0; i < cat_starts.length; i++){
+    cat_counts[i] = user.trans_hist.slice(1).map(transac => transac[2]).filter(function(x){return x.startsWith(cat_starts[i])}).length;
+  }
+  pie_chart(["Course related", "Other academic", "Non-academic"], cat_counts, "Number of trades of each category", "tradeCats");
+}
+
+function barchart(x, y, x_label, y_label, bg_col, bord_col, element){
+  if(document.getElementById(element)){
+    var ctx = document.getElementById(element).getContext('2d');
+    ctx.canvas.height = 400;
+    ctx.canvas.width = 400;
+    var rpts = Math.ceil(x.length/3)
+    bg_colours = Array(x.length).fill(bg_col);
+    bord_colours = Array(x.length).fill(bord_col);
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: x,
+        datasets: [{
+          data: y,
+          backgroundColor: bg_colours,
+          borderColor: bord_colours,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        legend: {
+          display:false
+        },
+        scales: {
+          xAxes: [{
+            scaleLabel: {
+              display:true,
+              labelString:x_label
+            }
+          }],
+          yAxes: [{
+            scaleLabel: {
+              display:true,
+              labelString:y_label
+            },
+            ticks: {
+              beginAtZero:true
+            }
+          }]
+        }
+      }
+    });
+  }
+}
+
+function pie_chart(x, y, lab, element){
+  if(document.getElementById(element)){
+    var ctx = document.getElementById(element).getContext('2d');
+    ctx.canvas.height = 400;
+    ctx.canvas.width = 400;
+    var rpts = Math.ceil(x.length/3)
+    bg_colours = ["rgba(255, 0, 0, 0.6)", "rgba(255, 215, 0, 0.6)", "rgba(0, 0, 0, 0.6)"];
+    bord_colours = ["rgba(255, 0, 0, 1)", "rgba(255, 215, 0, 1)", "rgba(0, 0, 0, 1)"];
+    var myChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: x,
+        datasets: [{
+          data: y,
+          backgroundColor: bg_colours,
+          borderColor: bord_colours,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        title: {
+          display:true,
+          text:lab
+        }
+      }
+    });
+  }
+}
+
+function get_report(addr){
+  /* Goes through the record of all transactions and generates a summary of
+  trades and feedback for one address. Returns an Object with the following
+  elements: Total traded, number of trades, mean trade, total feedback,
+  mean feedback; all of which will include sender-only, receive */
+  if (!is_address(addr)){
+    if(err_elem != ''){
+      document.getElementById(err_elem).innerHTML = "That's not an address";
+    }
+    return;
+  }
+  var report = {
+    trades:{
+      as_sender:0,
+      as_receiver:0,
+      all:0
+    },
+    trade_vals:{
+      as_sender:0,
+      as_receiver:0,
+      all:0
+    },
+    mean_trades:{
+      as_sender:0,
+      as_receiver:0,
+      all:0
+    },
+    total_fbks:{
+      as_sender:0,
+      as_receiver:0,
+      all:0
+    },
+    mean_fbks:{
+      as_sender:0,
+      as_receiver:0,
+      all:0
+    }
+  };
+  var num_snd_fbks=0;
+  var num_rec_fbks=0;
+  for(var i = 1; i < user.trans_hist.length; i++){
+    if(same_addr(addr, user.trans_hist[i][0])){
+      report.trades.as_sender++;
+      report.trade_vals.as_sender += user.trans_hist[i][6]
+      if(user.trans_hist[i][4]!= -10){
+        report.total_fbks.as_sender += user.trans_hist[i][4]
+        num_snd_fbks++;
+      }
+    }
+    if(same_addr(addr, user.trans_hist[i][1])){
+      report.trades.as_receiver++;
+      report.trade_vals.as_receiver += user.trans_hist[i][6]
+      if(user.trans_hist[i][3]!= -10){
+        report.total_fbks.as_receiver += user.trans_hist[i][3]
+        num_rec_fbks++;
+      }
+    }
+  }
+  report.trades.all = report.trades.as_sender+report.trades.as_receiver;
+  report.trade_vals.all = report.trade_vals.as_sender+report.trade_vals.as_receiver;
+  report.total_fbks.all = report.total_fbks.as_sender+report.total_fbks.as_receiver;
+  report.mean_trades.as_sender = divide_or_zero(report.trade_vals.as_sender, report.trades.as_sender);
+  report.mean_fbks.as_sender = divide_or_zero(report.total_fbks.as_sender, num_snd_fbks);
+  report.mean_trades.as_receiver = divide_or_zero(report.trade_vals.as_receiver, report.trades.as_receiver);
+  report.mean_fbks.as_receiver = divide_or_zero(report.total_fbks.as_receiver, num_rec_fbks);
+  report.mean_trades.all = divide_or_zero(report.trade_vals.all, report.trades.all);
+  report.mean_fbks.all = divide_or_zero(report.total_fbks.all, num_snd_fbks+num_rec_fbks);
+  return report;
+}
+
+function divide_or_zero(x, y){
+  // returns x/y, unless y is zero; then returns 0
+  return y==0 ? 0 : x/y;
+}
+
+function show_report(id){
+  var addr = document.getElementById('an_address_'+id).value;
+  console.log("show_report(" + id + ")");
+  if (!is_address(addr)){
+    console.log(addr);
+    if(addr==="") {
+      document.getElementById("rprt_"+id).innerHTML = "";
+    }
+    else{
+      document.getElementById("rprt_"+id).innerHTML = "That's not an address";
+    }
+    document.getElementById("snd_trs_"+id).innerHTML = "--";
+    document.getElementById("rec_trs_"+id).innerHTML = "--";
+    document.getElementById("all_trs_"+id).innerHTML = "--";
+    document.getElementById("snd_trd_"+id).innerHTML = "--";
+    document.getElementById("rec_trd_"+id).innerHTML = "--";
+    document.getElementById("all_trd_"+id).innerHTML = "--";
+    document.getElementById("snd_trd_m_"+id).innerHTML = "--";
+    document.getElementById("rec_trd_m_"+id).innerHTML = "--";
+    document.getElementById("all_trd_m_"+id).innerHTML = "--";
+    document.getElementById("snd_fbk_"+id).innerHTML = "--";
+    document.getElementById("rec_fbk_"+id).innerHTML = "--";
+    document.getElementById("all_fbk_"+id).innerHTML = "--";
+    document.getElementById("snd_fbk_m_"+id).innerHTML = "--";
+    document.getElementById("rec_fbk_m_"+id).innerHTML = "--";
+    document.getElementById("all_fbk_m_"+id).innerHTML = "--";
+    return;
+  }
+  report = get_report(addr);
+  document.getElementById("snd_trs_"+id).innerHTML = report.trades.as_sender;
+  document.getElementById("rec_trs_"+id).innerHTML = report.trades.as_receiver;
+  document.getElementById("all_trs_"+id).innerHTML = report.trades.all;
+  document.getElementById("snd_trd_"+id).innerHTML = report.trade_vals.as_sender;
+  document.getElementById("rec_trd_"+id).innerHTML = report.trade_vals.as_receiver;
+  document.getElementById("all_trd_"+id).innerHTML = report.trade_vals.all;
+  document.getElementById("snd_trd_m_"+id).innerHTML = report.mean_trades.as_sender.toFixed(2);
+  document.getElementById("rec_trd_m_"+id).innerHTML = report.mean_trades.as_receiver.toFixed(2);
+  document.getElementById("all_trd_m_"+id).innerHTML = report.mean_trades.all.toFixed(2);
+  document.getElementById("snd_fbk_"+id).innerHTML = report.total_fbks.as_sender;
+  document.getElementById("rec_fbk_"+id).innerHTML = report.total_fbks.as_receiver;
+  document.getElementById("all_fbk_"+id).innerHTML = report.total_fbks.all;
+  document.getElementById("snd_fbk_m_"+id).innerHTML = report.mean_fbks.as_sender.toFixed(2);
+  document.getElementById("rec_fbk_m_"+id).innerHTML = report.mean_fbks.as_receiver.toFixed(2);
+  document.getElementById("all_fbk_m_"+id).innerHTML = report.mean_fbks.all.toFixed(2);
+  document.getElementById("rprt_"+id).innerHTML = "Trade and feedback report for the account at:<br>" + addr;
+  if(report.trades.all==0) {
+    myContract.valid_student_addr.call(addr, function(error, result){
+      if(error) {
+        alert("Error: Was not able to communicate with contract :(");
+        console.log(error);
+      }
+      else {
+        if(result) {
+          document.getElementById("rprt_"+id).innerHTML += "<br>This is a valid student account, but has not traded.";
+        }
+        else{
+          document.getElementById("rprt_"+id).innerHTML += "<br>Note that this is not a valid student account.";
+        }
+      }
+    })
+  }
+}
+
+function openView(evt, tabName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(tabName).style.display = "block";
+  if(typeof evt == 'string'){
+    document.getElementById(evt).className += " active"
+  }
+  else{
+    evt.currentTarget.className += " active";
+  }
+}
+
+function submit_proposal() {
+  var amt_offered = document.getElementById("cc_offered").value;
+  var email = document.getElementById("email").value;
+  var cat = document.getElementById("offer_cat").value;
+  var reason = document.getElementById("offer_reason").value;
+  var type = document.getElementById("proposal_type").value;
+  // Check stuff that you don't need to his the contract for
+  if(amt_offered === '' || email === '' || reason === '' || cat === '' || type === '') {
+    document.getElementById("acknowledged").innerHTML = "Error: All fields must be filled in!";
+    return;
+  }
+  if(!is_valid_email(email)){
+    document.getElementById("acknowledged").innerHTML = "Error: That is not a valid email address.";
+    return;
+  }
+  if(isNaN(parseInt(amt_offered)) || parseInt(amt_offered) != Number(amt_offered)){
+    document.getElementById("acknowledged").innerHTML = "Error: You must offer a whole number of Tokens";
+    return;
+  }
+  else{
+    amt_offered = parseInt(amt_offered);
+  }
+  if(parseInt(amt_offered) < 1) {
+    document.getElementById("acknowledged").innerHTML = "Error: You must offer at least one CognoCent";
+    return;
+  }
+  // prefixes for reasons, needed for statistical breakdown
+  categories = {'course': 'COURSE-RELATED: ',
+    'extracurricular': 'OTHER ACADEMIC: ',
+    'non-academic': 'NON-ACADEMIC: '
+  };
+  reason = categories[cat] + type + ' ' + reason;
+  // does the student have enough tokens to do this?
+  myContract.student_token_balance.call(user.account , function(error, result){
+    if(error) {
+      alert("Error: Was not able to communicate with contract :(")
+      console.log(error)
+    }
+    else {
+      var bal = result;
+      if(parseInt(bal) < parseInt(amt_offered)) {
+        document.getElementById("acknowledged").innerHTML = "Error: You cannot send " + amt_offered + " Tokens; your account balance is " + bal + " Tokens";
+        alert("Error: Insufficient funds :(")
+      }
+      else {
+        myContract.valid_student_addr.call(user.account, function(error, result){
+          // Just in case someone is able to access the form with a non-student account
+          if(error) {
+            alert("Error: Was not able to communicate with contract :(")
+            console.log(error)
+          }
+          else {
+            if(!result){
+              document.getElementById("acknowledged").innerHTML = "Error: Your account is not a valid student account. Address is: " + user.account;
+            }
+            else {
+              document.getElementById("acknowledged").innerHTML = "Go to MetaMask to confirm this."
+              myContract.makeProposal(amt_offered, reason, email, {from:user.account , gas:4200000}, function(error,result){
+                // Post the proposal
+                if(error){
+                  console.log(error)
+                  document.getElementById("acknowledged").innerHTML = "Error: Proposal submission failed";
+                }
+                else if (type == '(Wanted)'){
+                  document.getElementById("acknowledged").innerHTML = "Confirmed: You are offering " + amt_offered + " Tokens for:<br>" + reason + "<br>...and gave the contact email:<br>" + email
+                }
+                else{
+                  document.getElementById("acknowledged").innerHTML = "Confirmed: You are offering the following:<br>" + reason + "<br>for " + amt_offered + " Tokens, and gave the contact email:<br>" + email
+                }
+              })
+            }
+          }
+        })
+      }
+    }
+  })
+}
+
+function is_valid_email(eml){
+  var re = new RegExp(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/);
+  return re.test(eml);
+}
+
+function get_offers() {
+  if(!myContract){
+    console.log("Trying to get at the offer list before connencting to a contract");
+    return;
+  }
+  // Get the number of proposals from the contract, so we know how often to loop
+  myContract.totalNum_proposals.call(function(error, result){
+    if(error) {
+      alert("Error: Was not able to communicate with contract :(")
+      console.log(error)
+    }
+    else {
+      var num_props = parseInt(result);
+      // remember, proposals in the contract are numbered starting at 1
+      for(var i = 1; i < num_props + 1; i++) {
+        // there are two cases where an proposal on the contract will change
+        // the state of the user-model here; if the proposal is new, and not
+        // yet recorded, or (else if) the proposal has become inactive
+        if(!user.offer_list[i]) {
+          myContract.proposals.call(i, function(error, result){
+            if(error) {
+              alert("Error: Was not able to communicate with contract :(")
+              console.log(error)
+            }
+            else {
+              user.offer_list[result[4]] = result;
+            }
+          })
+        }
+        else if(user.offer_list[i][5]){
+          myContract.proposals.call(i, function(error, result){
+            var ii = result[4];
+            if(error) {
+              alert("Error: Was not able to communicate with contract :(")
+              console.log(error)
+            }
+            else if(!result[5]){
+              // change the entry if applicable
+              user.offer_list[ii][5] = result[5];
+              var rows = document.getElementsByClassName("prop_row_"+ii)
+              // and if rows exist in the proposal table, blank them
+              for(var j = 0; j < rows.length; j++){
+                rows[j].innerHTML = "";
+              }
+            }
+          })
+        }
+      }
+    }
+  })
+}
+
+function generate_trade_form(addr, offer, value, id, cat, reason) {
+  var form = "<table display='none' id='trade_form_" + id + "'><tr><td colspan=4><input oninput='show_report(" + id + ")' type='text' id='an_address_" + id + "'  placeholder='e.g. 0x50a8badb01890fa09666aabcc4408deadbeef421'"
+  var selected_statuses = {'course':'', 'extracurricular':'', 'non-academic': ''};
+  selected_statuses[cat] = ' selected'
+  var report = {
+    trades:{
+      as_sender:"--",
+      as_receiver:"--",
+      all:"--"
+    },
+    trade_vals:{
+      as_sender:"--",
+      as_receiver:"--",
+      all:"--"
+    },
+    mean_trades:{
+      as_sender:"--",
+      as_receiver:"--",
+      all:"--"
+    },
+    total_fbks:{
+      as_sender:"--",
+      as_receiver:"--",
+      all:"--"
+    },
+    mean_fbks:{
+      as_sender:"--",
+      as_receiver:"--",
+      all:"--"
+    }
+  };
+  if (offer && !same_addr(addr, user.account)) {
+    form += "value='" + addr + "'";
+    report = get_report(addr);
+  }
+  form += "></input></td></tr>" +
+    "<tr><td width='25%' class='red'></td><th width='25%' class='s'>As sender</th><th width='25%' class='s'>As receiver</th><th width='25%' class='s'>All trades</th></tr>" +
+    "<tr>" +
+      "<th class='s'># of trades</th>" +
+      "<td id='snd_trs_" + id + "'>" + report.trades.as_sender + "</td>" +
+      "<td id='rec_trs_" + id + "'>" + report.trades.as_receiver + "</td>" +
+      "<td id='all_trs_" + id + "'>" + report.trades.all + "</td>" +
+    "</tr>" +
+    "<tr>" +
+      "<th class='s'>value traded</th>" +
+      "<td id='snd_trd_" + id + "'>" + report.trade_vals.as_sender + "</td>" +
+      "<td id='rec_trd_" + id + "'>" + report.trade_vals.as_receiver + "</td>" +
+      "<td id='all_trd_" + id + "'>" + report.trade_vals.all + "</td>" +
+    "</tr>" +
+    "<tr>" +
+      "<th class='s'>mean trade</th>" +
+      "<td id='snd_trd_m_" + id + "'>" + report.mean_trades.as_sender + "</td>" +
+      "<td id='rec_trd_m_" + id + "'>" + report.mean_trades.as_receiver + "</td>" +
+      "<td id='all_trd_m_" + id + "'>" + report.mean_trades.all + "</td>" +
+    "</tr>" +
+    "<tr>" +
+      "<th class='s'>feedback</th>" +
+      "<td id='snd_fbk_" + id + "'>" + report.total_fbks.as_sender + "</td>" +
+      "<td id='rec_fbk_" + id + "'>" + report.total_fbks.as_receiver + "</td>" +
+      "<td id='all_fbk_" + id + "'>" + report.total_fbks.all + "</td>" +
+    "</tr>" +
+    "<tr>" +
+      "<th class='s'>mean feedback</th>" +
+      "<td id='snd_fbk_m_" + id + "'>" + report.mean_fbks.as_sender + "</td>" +
+      "<td id='rec_fbk_m_" + id + "'>" + report.mean_fbks.as_receiver + "</td>" +
+      "<td id='all_fbk_m_" + id + "'>" + report.mean_fbks.all + "</td>" +
+    "</tr>" +
+    "<tr>" +
+      "<td colspan=4 id='rprt_" + id + "'>"
+    if (offer) {
+      form += "Trade and feedback report for the account at:<br>" + addr;
+    }
+    form += "</td>" +
+    "</tr>" +
+    "<tr>" +
+      "<td><label for='to_send_" + id + "'>Tokens:</label><input type='text' id='to_send_" + id + "' placeholder='e.g. 3' value='" + value + "'></td>" +
+      "<td><label for='prop_id_" + id + "'>ID#:</label><input type='text' id='prop_id_" + id + "' placeholder='e.g. 12' value='" + id + "'></td>" +
+      "<td colspan=2><label for='category_" + id + "'>Category:</label><br>" +
+        "<select id='category_" + id + "' name='category_" + id + "'>" +
+          "<option value='' disabled>choose category:</option>" +
+          "<option value='course'" + selected_statuses['course'] + ">Course-Related</option>" +
+          "<option value='extracurricular'" + selected_statuses['extracurricular'] + ">Other Academic</option>" +
+          "<option value='non-academic'" + selected_statuses['non-academic'] + ">Non-Academic</option>" +
+        "</select>" +
+      "</td>" +
+    "</tr>" +
+    "<tr>" +
+      "<td colspan=4>" +
+        "<label for='reason_" + id + "'>Reason for transaction:</label><textarea id='reason_" + id + "' rows='4' placeholder='Details: e.g., payment for lecture notes'>" + reason + "</textarea>" +
+      "</td>" +
+    "</tr>" +
+    "<tr>" +
+      "<td colspan=4>" +
+        "<button onclick='send_token(" + id + ")'>Send Tokens</button>" +
+      "</td>" +
+    "</tr>" +
+    "<tr>" +
+      "<td colspan=4 id='receipt_" + id + "'></td>" +
+    "</tr></table>";
+    return form;
+}
+
+function get_email_link(n){
+  if(user.status=='NA'||user.status=='XX'){
+    return "Email address hidden";
+  }
+  else{
+    var proposalURI = encodeURIComponent(user.offer_list[n][3]);
+    var subject = "[ValuED]%20Your%20offer%3A%20" + proposalURI;
+    var body = "I%20am%20interested%20in%20the%20trade%20you%20proposed%20on%20" +
+      "ValuED%2C%20proposal%20%23" + user.offer_list[n][4] + "%2C%20%22" + proposalURI + "%22.";
+    return '<a href="mailto:'+user.offer_list[n][2]+'?subject=' + subject + "&amp;body=" + body + '">'+user.offer_list[n][2]+'</a>'
+  }
+}
+
+function refresh_prop_emails(){
+  for(var i = 1; i < user.offer_list.length; i++){
+    if(document.getElementById('mail_link_'+i)){
+      document.getElementById('mail_link_'+i).innerHTML = get_email_link(i);
+    }
+  }
+}
+
+function filter_proposals(){
+  var filter_on = !document.getElementById("f_none").checked;
+  var filter_self = document.getElementById("f_self").checked;
+  for(var i = 1; i < user.offer_list.length; i++){
+    if(user.offer_list[i][5]){
+      if(filter_on){
+        var is_offer = parse_reason(user.offer_list[i][3]).type == '(Offered)'
+        var is_wanted = parse_reason(user.offer_list[i][3]).type == '(Wanted)'
+        if(same_addr(user.offer_list[i][1], user.account) == filter_self){
+          var rows = document.getElementsByClassName("prop_row_"+i);
+          for(var j = 0; j < rows.length; j++){
+            rows[j].style.display = 'table-row';
+          }
+        }
+        else{
+          var rows = document.getElementsByClassName("prop_row_"+i);
+          for(var j = 0; j < rows.length; j++){
+            rows[j].style.display = 'none';
+          }
+        }
+      }
+      else{
+        var rows = document.getElementsByClassName("prop_row_"+i);
+        for(var j = 0; j < rows.length; j++){
+          rows[j].style.display = 'table-row';
+        }
+      }
+    }
+  }
+}
+
+function parse_reason(reason){
+  prefixes = ["COURSE-RELATED", "OTHER ACADEMIC", "NON-ACADEMIC"];
+  pref_vals = {
+    "COURSE-RELATED":'course',
+    "OTHER ACADEMIC":'extracurricular',
+    "NON-ACADEMIC":'non-academic'
+  }
+  types = ['(Offered)', '(Wanted)']
+  split_reason = {
+    cat_disp: '',
+    cat_val: '',
+    type: '',
+    details: ''
+  };
+  split_index = 0;
+  for(var i = 0; i < prefixes.length; i++){
+    if(reason.startsWith(prefixes[i])){
+      split_reason.cat_val = pref_vals[prefixes[i]];
+      split_reason.cat_disp = prefixes[i];
+      split_index = prefixes[i].length;
+      break;
+    }
+  }
+  if(reason.slice(split_index).startsWith(':')){
+    split_index++;
+  }
+  if(reason.slice(split_index).length > reason.slice(split_index).trim().length){
+    split_index += reason.slice(split_index).length - reason.slice(split_index).trim().length;
+  }
+  for(var j = 0; j < types.length; j++){
+    if(reason.slice(split_index).startsWith(types[j])){
+      split_reason.type = types[j];
+      split_index += types[j].length;
+      break;
+    }
+  }
+  split_reason.details = reason.slice(split_index);
+  return split_reason;
+}
+
+function init_trade(prop_no, filter_self){
+  if (document.getElementById("trade_form_"+prop_no).style.display == 'none') {
+    document.getElementById("trade_form_"+prop_no).style.display = 'table';
+    document.getElementById("init_tr_butt_"+prop_no).innerHTML = 'Close';
+    if (!filter_self) {
+      show_report(prop_no);
+    }
+  }
+  else {
+    document.getElementById("trade_form_"+prop_no).style.display = 'none';
+    document.getElementById("init_tr_butt_"+prop_no).innerHTML = 'Initiate Trade';
+  }
+
+  // var to_send = document.getElementById("to_send_"+prop_no);
+  // var prop_id = document.getElementById("prop_id_"+prop_no);
+  // var category = document.getElementById("category_"+prop_no);
+  // var reason = document.getElementById("reason_"+prop_no);
+  // var address = document.getElementById("an_address_"+prop_no);
+  // if(to_send && prop_id && category && reason){
+  //   to_send.value = user.offer_list[prop_no][0];
+  //   prop_id.value = prop_no;
+  //   if(!filter_self){
+  //     address.value = user.offer_list[prop_no][1];
+  //   }
+  //   split_reason = parse_reason(user.offer_list[prop_no][3])
+  //   category.value = split_reason.cat_val;
+  //   reason.innerHTML = split_reason.details;
+  //   openView("trad_but","Trading");
+  //   address.focus()
+  // }
+}
+
+function set_lect_num() {
+  var lect_num = document.getElementById("lect_num").value;
+  var val_err = "The lecture number must be a positive whole number";
+  if (!lect_num){
+    document.getElementById("lect_code_set").innerHTML = "All fields must be filled in!";
+  }
+  if(isNaN(parseInt(lect_num))) {
+    console.log('not int');
+    document.getElementById("lect_num_set").innerHTML = val_err;
+  }
+  else if (parseInt(lect_num) != parseFloat(lect_num) || parseInt(lect_num) < 0) {
+    if(parseInt(lect_num) != parseFloat(lect_num)){
+      console.log('floater');
+    }
+    else{
+      console.log('subzero: ' + lect_num);
+    }
+    document.getElementById("lect_num_set").innerHTML = val_err;
+  }
+  else {
+    myContract.set_currentlecture_number(lect_num, {from:user.account , gas:4200000}, function(error,result){
+      if(error) {
+        alert("Error: Unable to communicate with contract")
+        console.log(error)
+      }
+      else{
+        document.getElementById("lect_num_set").innerHTML = "The current lecture is Lecture " + lect_num + "."
+      }
+    });
+  }
+}
+
+function set_lect_code() {
+  var lect_num = document.getElementById("lect_num2").value;
+  var lect_code = document.getElementById("lect_code").value;
+  if (!lect_num || !lect_code){
+    document.getElementById("lect_code_set").innerHTML = "All fields must be filled in!";
+  }
+  var val_err = "The lecture number must be a positive whole number";
+  if(!parseInt(lect_num)) {
+    document.getElementById("lect_code_set").innerHTML = val_err;
+  }
+  else if (parseInt(lect_num) != parseFloat(lect_num) || parseInt(lect_num) < 0) {
+    document.getElementById("lect_code_set").innerHTML = val_err;
+  }
+  else {
+    myContract.register_lectureID(lect_num, lect_code, {from:user.account, gas:4200000}, function(error,result){
+      if(error) {
+        alert("Error: Unable to communicate with contract")
+        console.log(error)
+      }
+      else{
+        document.getElementById("lect_code_set").innerHTML = 'The ID for Lecture ' + lect_num + ' is "' + lect_code + '".'
+      }
+    });
+  }
+}
+
+function check_lecture_info(){
+  myContract.current_lecture_number.call(function(error, result){
+    if(error){
+      alert("Error: Unable to communicate with contract")
+      console.log(error)
+    }
+    else{
+      user.lec_no = get(result);
+    }
+  });
+  myContract.lecture_tokens.call(function(error, result){
+    if(error){
+      alert("Error: Unable to communicate with contract")
+      console.log(error)
+    }
+    else{
+      user.lec_value = get(result);
+    }
+  });
+}
+
+function enter_lecture_code() {
+  var lec_code = document.getElementById('lect_id').value;
+  if (!lec_code){
+    document.getElementById("lect_code_set").innerHTML = "Please enter the ID!";
+  }
+  myContract.valid_student_addr.call(user.account, function(error, result){
+    if(error){
+      alert("Error: Unable to communicate with contract")
+      console.log(error)
+    }
+    else{
+      if(result){
+        myContract.attended.call(user.account, function(error, result){
+          if(error){
+            alert("Error: Unable to communicate with contract")
+            console.log(error)
+          }
+          else{
+            var last_attended = get(result);
+            myContract.current_lecture_number.call(function(error, result){
+              var cur_lec_no = get(result)
+              if(last_attended == cur_lec_no){
+                document.getElementById('lec_code_res').innerHTML = "Error: You have already claimed tokens for this lecture";
+              }
+              else {
+                myContract.hash_lectureID.call(cur_lec_no, function(error, result){
+                  if(error){
+                    alert("Error: Unable to communicate with contract")
+                    console.log(error)
+                  }
+                  else{
+                    if(result == Web3.prototype.sha3(lec_code).slice(0, 6)){
+                      myContract.claim_token(lec_code, {from:user.account, gas:4200000}, function(error, result){
+                        if(error){
+                          alert("Error: Unable to communicate with contract")
+                          console.log(error)
+                        }
+                        else{
+                          document.getElementById('lec_code_res').innerHTML = user.lec_value + " Tokens will be credited to your account.";
+                        }
+                      });
+                    }
+                    else {
+                    document.getElementById('lec_code_res').innerHTML = "Incorrect code. No Tokens were credited to your account.";
+                    }
+                  }
+                });
+              }
+            });
+          }
+        });
+      }
+      else {
+        document.getElementById('lec_code_res').innerHTML = "Error: This doesn't appear to be a valid student account"
+      }
+    }
+  });
+}
+
+function time_str(date_time){
+  var dt = new Date(date_time);
+  var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+  var th = "th"
+  var date = dt.getDate();
+  if (date % 10 == 1) {
+    th = 'st';
+  }
+  else if (date % 10 == 2) {
+    da = 'nd';
+  }
+  else if (date % 10 == 3) {
+    th = 'rd';
+  }
+  if (date > 10 && date < 14) {
+    th = 'st';
+  }
+  var dt_str = dt.getHours()%12 != 0 ? dt.getHours() : 12;
+  dt_str += ":" + pad_zeros(dt.getMinutes(), 2) + ":" + pad_zeros(dt.getSeconds(), 2) + " " + (dt.getHours()<12 ? "A.M." : "P.M.") + "<br>";
+  dt_str += days[dt.getDay()] + ", " + date + th + " " + months[dt.getMonth()] + " " + dt.getFullYear();
+  return dt_str;
+}
+
+function pad_zeros(n, width) {
+  var en = n.toString();
+  if (en.length > width){
+    return en
+  }
+  else{
+    return "0".repeat(width-en.length) + en
+  }
+}
+
+function show_about(){
+  document.getElementById("vcat_info").innerHTML = about_vcat;
+}
+
+function show_how_to(){
+  document.getElementById("vcat_info").innerHTML = get_started;
+}
+
+</script>
